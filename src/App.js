@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+class App extends React.Component{
+  render(){
+    let boss = '李云龙'
+    return(
+      <div>
+        <h2>独立团，{boss}</h2>
+       <Team></Team>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+class Team extends React.Component{
+  render(){
+    let boss = '哈哈哈'
+    return <h3>Team leader {boss}</h3>
+  }
+}
+
+export default App
