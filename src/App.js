@@ -1,22 +1,23 @@
-import React from 'react'
-
+import React from 'react';
 class App extends React.Component{
-  render(){
-    let boss = '李云龙'
-    return(
-      <div>
-        <h2>独立团，{boss}</h2>
-       <Team></Team>
-      </div>
-    )
-  }
+    // constructor(props) {
+    //     super(props);
+    // }
+    
+    render() {
+        const store = this.props.store
+        const num = store.getState()
+        const addGUN = this.props.addGUN
+        const removeGUN = this.props.removeGUN
+        const addGunAsync = this.props.addGunAsync
+        return (
+            <div>
+                <h1>现在有机枪{num}把</h1>
+                <button onClick={()=>store.dispatch(addGUN())}>申请武器</button>
+                <button onClick={()=>store.dispatch(removeGUN())}>上交武器</button>
+                <button onClick={()=>store.dispatch(addGunAsync())}>拖两天</button>
+            </div>
+        )
+    }
 }
-
-class Team extends React.Component{
-  render(){
-    let boss = '哈哈哈'
-    return <h3>Team leader {boss}</h3>
-  }
-}
-
 export default App
