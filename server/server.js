@@ -14,8 +14,8 @@ const User = mongoose.model('user',new mongoose.Schema({
 }))
 //新增数据
 // User.create({
-//     user:'xiaoming',
-//     age:18
+//     user:'xiaohang',
+//     age:20
 // },function (err,doc) {
 //     if(!err){
 //         console.log(doc);
@@ -42,7 +42,7 @@ app.get('/', function(req, res) {
 
 //findone 返回一条数据，没有[],可以直接用这个对象
 app.get('/data', function(req, res) {
-    User.find({user:'xiaoming'},function(err,doc){
+    User.find({'user':'xiaoming'},function(err,doc){
         res.json(doc)
     })
     // res.json({ name: '999', type: 'IT' })
