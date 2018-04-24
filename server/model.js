@@ -10,8 +10,14 @@ const models = {
         'type':{'type':String, 'require':true},
         //头像
         'avatar':{'type':String},
-        //身份
-        'title':{'type':String}
+        //救助站名称
+        'title':{'type':String},
+        //昵称
+        'name':{'type':String},
+        //城市
+        'city':{'type':String},
+        //描述
+        'desc':{'type':String}
     },
     chat:{
 

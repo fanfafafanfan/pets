@@ -2,3 +2,16 @@
     color: brown;
     padding-left: 1rem;
 }
+.am-tab-bar{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+.fixd-header.am-navbar{
+	position: fixed;
+	top: 0;
+	width: 100%;
+}
+.page-content{
+	padding:4.5rem 0.5rem;
+}

@@ -8,13 +8,12 @@ import {update} from '../../redux/user.redux'
     state=>state.user,
     {update}
 )
-class JiuzhuInfo extends React.Component{
+class LingyangInfo extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-            title:'',
-            city:'',
             name:'',
+            city:'',
             desc:''
         }
     }
@@ -29,12 +28,8 @@ class JiuzhuInfo extends React.Component{
         return (
             <div>
                 {redirect&&redirect!==path? <Redirect to={this.props.redirectTo}></Redirect> :null}
-                <NavBar mode="dark">救助完善信息页面</NavBar>
+                <NavBar mode="dark">领养完善信息页面</NavBar>
                 <AvatarSelector selectAvatar={(iconname)=>{this.setState({avatar:iconname})}}></AvatarSelector>
-                <WhiteSpace/>
-                <InputItem onChange={(v)=>this.onChange('title',v)}>
-                    救助站名称
-                </InputItem>
                 <WhiteSpace/>
                 <InputItem onChange={(v)=>this.onChange('name',v)}>
                     昵称
@@ -46,7 +41,7 @@ class JiuzhuInfo extends React.Component{
                 <WhiteSpace/>
                 <TextareaItem onChange={(v)=>this.onChange('desc',v)}
                     rows={2}
-                    title='描述'
+                    title='个人说明'
                     >
                 </TextareaItem>
                 <WhiteSpace/>
@@ -56,4 +51,4 @@ class JiuzhuInfo extends React.Component{
     }
 }
 
-export default JiuzhuInfo
+export default LingyangInfo
