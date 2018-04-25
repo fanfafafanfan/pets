@@ -9,6 +9,7 @@ import Login from './container/login/login'
 import Register from './container/register/register'
 import JiuzhuInfo from './container/jiuzhuinfo/jiuzhuinfo'
 import LingyangInfo from './container/lingyanginfo/lingyanginfo'
+import NewPost from './container/newpost/newpost'
 import Dashboard from './component/dashboard/dashboard'
 import AuthRoute from './component/authroute/authroute'
 import reducers from './reducer'
@@ -26,6 +27,7 @@ ReactDom.render(
 			<div>
 				<AuthRoute></AuthRoute>
 				<Switch>
+					<Route path='/newpost' component={NewPost}/>
 					<Route path='/lingyanginfo' component={LingyangInfo}/>
 					<Route path='/jiuzhuinfo' component={JiuzhuInfo}/>
 					<Route path='/login' component={Login}/>
