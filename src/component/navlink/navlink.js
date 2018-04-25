@@ -23,7 +23,7 @@ class NavLinkBar extends React.Component{
                                 <use xlinkHref={v.icon}></use>
                             </svg>}
 						selectedIcon={<svg className="icon-footer" aria-hidden="true">
-                                        <use xlinkHref={v.iconactive}></use>
+                                        <use xlinkHref={v.icon+"-copy"}></use>
                                     </svg>}
 						selected={pathname===v.path}
 						onPress={()=>{

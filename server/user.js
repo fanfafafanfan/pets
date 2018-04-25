@@ -8,8 +8,9 @@ const _filter = {'pwd':0,'__v':0}
 
 Router.get('/list',function(req,res){
     // User.remove({},function(e,d){})
-    User.find({},function (err,doc) {
-        return res.json(doc)
+    const {type} = req.query
+    User.find({type},function (err,doc) {
+        return res.json({code:0,data:doc})
     })
 })
 
@@ -24,7 +25,7 @@ Router.post('/update',function(req,res){
             user:doc.user,
             type:doc.type
         },body)
-        return res.json({code:0,data})
+        return res.json({code:0,data:doc})
     })
 })
 
