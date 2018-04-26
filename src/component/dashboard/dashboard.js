@@ -1,26 +1,53 @@
 import React from 'react'
-import {NavBar, Icon} from 'antd-mobile'
+import {NavBar, Icon, TabBar} from 'antd-mobile'
 import {connect} from 'react-redux'
 import {Switch, Route} from 'react-router-dom'
 import Home from '../../component/home/home'
+import User from '../../component/user/user'
 import NavLinkBar from '../navlink/navlink'
-
+import {newpost} from '../../redux/user.redux'
 // function Home(){
 // 	return <h2>首页</h2>
 // }
 function Msg(){
 	return <h2>消息列表页面</h2>
 }
-function User(){
-	return <h2>个人中心页面</h2>
-}
+// function User(){
+// 	return <h2>个人中心页面</h2>
+// }
 
 @connect(
-    state=>state    
+	state=>state,
+	{newpost}  
 )
 class Dashboard extends React.Component {
-
+    constructor(props) {
+		super(props)
+		// this.getnewpost = this.getnewpost.bind(this)
+        this.state = {
+            visible: false
+        }
+    }
     
+    onSelect(opt) {
+		console.log(this.state.visible);
+        this.setState({
+            visible: false
+        });
+    }
+    
+    handleVisibleChange(visible) {
+		console.log(this.state.visible);
+        this.setState({
+            visible
+        });
+	}
+
+	// getnewpost(){
+	// 	console.log(this.props);
+	// 	this.props.newpost()
+	// }
+
     render(){
         const {pathname} = this.props.location
 		const user = this.props.user
@@ -53,8 +80,13 @@ class Dashboard extends React.Component {
 
         return(
             <div>
+				
+				
 				<NavBar className='fixd-header' mode='dard' 
-				rightContent={[<Icon key="0" type="ellipsis" />]}>{navList.find(v=>v.path==pathname).title}</NavBar>
+				rightContent={
+					pathname === '/home'?(<Icon key="1" type="ellipsis" onClick={()=>{this.props.newpost}} />):('')
+							}
+							>{navList.find(v=>v.path==pathname).title}</NavBar>
 				<div style={{marginTop:45}}>
 					 <Switch>
 						{navList.map(v=>(
@@ -62,8 +94,7 @@ class Dashboard extends React.Component {
 						))}
 					</Switch>
 				</div>
-               
-                <NavLinkBar data={navList}></NavLinkBar>
+				<NavLinkBar data={navList}></NavLinkBar>
             </div>
         )
     }

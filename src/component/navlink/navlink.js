@@ -3,9 +3,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {TabBar} from 'antd-mobile'
 import {withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
 
 @withRouter
-class NavLinkBar extends React.Component{
+@connect(
+	state=>state
+)
+class NavLinkBar extends React.Component {
 	// static propTypes = {
 	// 	data: PropTypes.array.isRequired
 	// }

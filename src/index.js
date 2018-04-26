@@ -12,6 +12,7 @@ import LingyangInfo from './container/lingyanginfo/lingyanginfo'
 import NewPost from './container/newpost/newpost'
 import Dashboard from './component/dashboard/dashboard'
 import AuthRoute from './component/authroute/authroute'
+import Chat from './component/chat/chat'
 import reducers from './reducer'
 import './config'
 import './index.css'
@@ -32,6 +33,7 @@ ReactDom.render(
 					<Route path='/jiuzhuinfo' component={JiuzhuInfo}/>
 					<Route path='/login' component={Login}/>
 					<Route path='/register' component={Register}/>
+					<Route path='/chat/:user' component={Chat}/>
 					<Route component={Dashboard}/>
 				</Switch>
 			</div>

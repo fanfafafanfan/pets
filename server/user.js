@@ -6,10 +6,24 @@ const model = require('./model')
 const User = model.getModel('user')
 const _filter = {'pwd':0,'__v':0}
 
+Router.post('/newpost',function(req,res){
+    const userid = req.cookies.userid
+    if(!userid){
+        return json.dumps({code:1})
+    }
+    const body = req.body
+    User.findByIdAndUpdate(userid,body,function(err,doc){
+        const data = Object.assign({},{
+            user:doc.user,
+        },body)
+        return res.json({code:0,data:doc})
+    })
+})
+
 Router.get('/list',function(req,res){
     // User.remove({},function(e,d){})
-    const {type} = req.query
-    User.find({type},function (err,doc) {
+    // const {type} = req.query
+    User.find({},function (err,doc) {
         return res.json({code:0,data:doc})
     })
 })

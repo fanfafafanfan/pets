@@ -21,7 +21,8 @@ function postlist(data) {
 
 export function getPostList(type) {
     return dispatch=>{
-        axios.get('/user/list/?type=lingyang')
+        // axios.get('/user/list/?type=lingyang')
+        axios.get('/user/list')        
         .then(res=>{
             if(res.data.code==0){
                 dispatch(postlist(res.data.data))
