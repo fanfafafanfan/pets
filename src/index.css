@@ -17,8 +17,13 @@
 .page-content{
 	padding:4.5rem 0.5rem;
 }
+html:not([data-scale]) .am-card-body::before{
+	z-index: 0;
+}
 
 #chat-page .chat-me .am-list-extra{
+	
+	color: black;
 	flex-basis:auto;
 }
 #chat-page .chat-me .am-list-content{
@@ -30,6 +35,10 @@
 }
 #chat-page .am-grid-text{
 	margin-top: 0;
+	font-size: 18px;
+}
+#chat-page .am-list{
+	font-size: 16px;
 }
 .stick-footer{
 	z-index:10;

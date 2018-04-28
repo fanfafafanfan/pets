@@ -18,7 +18,16 @@ const models = {
         'desc':{'type':String}
     },
     chat:{
-
+        // 每个聊天唯一标识 from sb to sb
+        'chatid':{'type':String, 'require':true},
+        'from':{'type':String,'require':true},
+        'to':{'type':String,'require':true},
+        //针对to的用户
+        'read':{'type':Boolean,'default':false},
+        //聊天内容
+        'content':{'type':String,'require':true,'default':''},
+        //每条消息创建时间
+        'create_time':{'type':Date,'default':Date.now}
     }
 }
 

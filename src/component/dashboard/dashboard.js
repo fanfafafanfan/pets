@@ -4,21 +4,23 @@ import {connect} from 'react-redux'
 import {Switch, Route} from 'react-router-dom'
 import Home from '../../component/home/home'
 import User from '../../component/user/user'
+import Msg from '../../component/msg/msg'
 import NavLinkBar from '../navlink/navlink'
 import {newpost} from '../../redux/user.redux'
+import { getMsgList,sendMsg,recvMsg } from '../../redux/chat.redux'
 // function Home(){
 // 	return <h2>首页</h2>
 // }
-function Msg(){
-	return <h2>消息列表页面</h2>
-}
+// function Msg(){
+// 	return <h2>消息列表页面</h2>
+// }
 // function User(){
 // 	return <h2>个人中心页面</h2>
 // }
 
 @connect(
 	state=>state,
-	{newpost}  
+	{newpost,getMsgList,recvMsg }  
 )
 class Dashboard extends React.Component {
     constructor(props) {
@@ -47,6 +49,14 @@ class Dashboard extends React.Component {
 	// 	console.log(this.props);
 	// 	this.props.newpost()
 	// }
+
+	componentDidMount(){
+		if(!this.props.chat.chatmsg.length){
+			this.props.getMsgList()
+			this.props.recvMsg()
+		}
+		
+	}
 
     render(){
         const {pathname} = this.props.location
@@ -81,12 +91,6 @@ class Dashboard extends React.Component {
         return(
             <div>
 				
-				
-				<NavBar className='fixd-header' mode='dard' 
-				rightContent={
-					pathname === '/home'?(<Icon key="1" type="ellipsis" onClick={()=>{this.props.newpost}} />):('')
-							}
-							>{navList.find(v=>v.path==pathname).title}</NavBar>
 				<div style={{marginTop:45}}>
 					 <Switch>
 						{navList.map(v=>(
@@ -94,6 +98,12 @@ class Dashboard extends React.Component {
 						))}
 					</Switch>
 				</div>
+				<NavBar className='fixd-header' mode='dard' 
+				rightContent={
+					pathname === '/home'?(<Icon key="1" type="ellipsis" onClick={()=>{this.props.newpost}} />):('')
+							}
+							>{navList.find(v=>v.path==pathname).title}</NavBar>
+				
 				<NavLinkBar data={navList}></NavLinkBar>
             </div>
         )

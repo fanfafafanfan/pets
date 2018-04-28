@@ -33,7 +33,7 @@ ReactDom.render(
 					<Route path='/jiuzhuinfo' component={JiuzhuInfo}/>
 					<Route path='/login' component={Login}/>
 					<Route path='/register' component={Register}/>
-					<Route path='/chat/:user' component={Chat}/>
+					<Route path='/chat/:userid' component={Chat}/>
 					<Route component={Dashboard}/>
 				</Switch>
 			</div>

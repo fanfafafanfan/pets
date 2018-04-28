@@ -5,24 +5,24 @@ import {withRouter} from 'react-router-dom'
 
 @withRouter
 class PostCard extends React.Component{
+    // 跳转到聊天的页面
     handleClick(v){
-        console.log(this.props)
-        this.props.history.push(`/chat/${v.user}`)
+        // console.log(this.props)
+        this.props.history.push(`/chat/${v._id}`)
     }
  render() {
     const Header = Card.Header
     const Body = Card.Body
-    {console.log(this.props);}
      return (
-         <WingBlank>
+         <div>
              <WhiteSpace/>
              {
                  (this.props.postlist)?this.props.postlist.map(v=>(
-                            <Card key={v._id}
+                            <Card key={v._id} 
                             onClick={()=>this.handleClick(v)}
                             >
                                 <Header
-                                title={v.user}
+                                title={v.name}
                                 thumb={<svg className="icon-footer" aria-hidden="true">
                                                 <use xlinkHref={"#icon-"+v.avatar}></use>
                                             </svg>}
@@ -32,10 +32,8 @@ class PostCard extends React.Component{
                                 </Body>
                             </Card> 
                     )):null
-                    
                 }
-                
-         </WingBlank>
+         </div>
      );
  }
 }

@@ -4,6 +4,7 @@ import AvatarSelector from '../../component/avatar-selector/avatar-selector'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import {update} from '../../redux/user.redux'
+import {fixCarousel} from '../../util'
 @connect(
     state=>state.user,
     {update}
@@ -16,6 +17,9 @@ class LingyangInfo extends React.Component{
             city:'',
             desc:''
         }
+    }
+    componentDidMount() {
+        fixCarousel()
     }
     onChange(key,val){
         this.setState({

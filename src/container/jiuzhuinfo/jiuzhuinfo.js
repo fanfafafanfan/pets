@@ -4,6 +4,7 @@ import AvatarSelector from '../../component/avatar-selector/avatar-selector'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import {update} from '../../redux/user.redux'
+import {fixCarousel} from '../../util'
 @connect(
     state=>state.user,
     {update}
@@ -17,6 +18,9 @@ class JiuzhuInfo extends React.Component{
             name:'',
             desc:''
         }
+    }
+    componentDidMount() {
+        fixCarousel()
     }
     onChange(key,val){
         this.setState({
@@ -32,12 +36,8 @@ class JiuzhuInfo extends React.Component{
                 <NavBar mode="dark">救助完善信息页面</NavBar>
                 <AvatarSelector selectAvatar={(iconname)=>{this.setState({avatar:iconname})}}></AvatarSelector>
                 <WhiteSpace/>
-                <InputItem onChange={(v)=>this.onChange('title',v)}>
-                    救助站名称
-                </InputItem>
-                <WhiteSpace/>
                 <InputItem onChange={(v)=>this.onChange('name',v)}>
-                    昵称
+                救助站名称
                 </InputItem>
                 <WhiteSpace/>
                 <InputItem onChange={(v)=>this.onChange('city',v)}>
