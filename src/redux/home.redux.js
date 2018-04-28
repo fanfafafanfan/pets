@@ -9,23 +9,22 @@ const initState = {
 export function home(state=initState,action) {
     switch (action.type) {
         case POST_LIST:
-            return {...state,postlist:action.payload}
+            return {...state,postlist:action.payload.list,users:action.payload.users}
         default:
             return state
     }
 }
 
-function postlist(data) {
-    return {type:POST_LIST,payload:data}
+function postlist(list,users) {
+    return {type:POST_LIST,payload:{list,users}}
 }
 
 export function getPostList(type) {
     return dispatch=>{
-        // axios.get('/user/list/?type=lingyang')
-        axios.get('/user/list')        
+        axios.get('/posts/postlist')       
         .then(res=>{
             if(res.data.code==0){
-                dispatch(postlist(res.data.data))
+                dispatch(postlist(res.data.list,res.data.users))
             }
         })
     }

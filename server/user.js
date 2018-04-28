@@ -5,39 +5,10 @@ const Router = express.Router()
 const model = require('./model')
 const User = model.getModel('user')
 const Chat = model.getModel('chat')
+const Posts = model.getModel('posts')
 const _filter = {'pwd':0,'__v':0}
 
-Router.post('/newpost',function(req,res){
-    const userid = req.cookies.userid
-    if(!userid){
-        return json.dumps({code:1})
-    }
-    const body = req.body
-    User.findByIdAndUpdate(userid,body,function(err,doc){
-        const data = Object.assign({},{
-            user:doc.user,
-        },body)
-        return res.json({code:0,data:doc})
-    })
-})
-
-Router.get('/getmsglist',function (req,res) {
-    const userid = req.cookies.userid
-    User.find({},function (e,userdoc) {
-        let users= {}
-        userdoc.forEach(v=>{
-            users[v._id] = {user:v.user,name:v.name,avatar:v.avatar}
-        })
-        Chat.find({'$or':[{from:userid},{to:userid}]},function (err,doc) {
-            if(!err){
-                return res.json({code:0,msgs:doc,users:users})
-            }  
-        })
-    })
-    // {'$or':[{from:user,to:user}]}
-    
-})
-
+// 查询所有user信息
 Router.get('/list',function(req,res){
     // User.remove({},function(e,d){})
     // const {type} = req.query
@@ -46,6 +17,7 @@ Router.get('/list',function(req,res){
     })
 })
 
+//完善信息页面
 Router.post('/update',function(req,res){
     const userid = req.cookies.userid
     if(!userid){
@@ -61,6 +33,7 @@ Router.post('/update',function(req,res){
     })
 })
 
+//登录页面信息
 Router.post('/login', function(req, res){
     const {user, pwd} = req.body
     User.findOne({user,pwd:md5Pwd(pwd)}, _filter, function (err,doc) {
@@ -72,6 +45,7 @@ Router.post('/login', function(req, res){
     })
 })
 
+// 注册页面信息
 Router.post('/register', function(req, res){
     const {user, pwd, type} = req.body
     User.findOne({user:user}, _filter,function (err,doc) {
@@ -90,6 +64,7 @@ Router.post('/register', function(req, res){
     })
 })
 
+// 如果cookie中没有userid 即用户未登录 直接跳转到用户登录页面
 Router.get('/info',function (req,res) {
     const {userid} = req.cookies
     if(!userid){

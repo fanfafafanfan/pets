@@ -1,24 +1,26 @@
 import React from 'react'
 import {NavBar, Icon, List, InputItem, WhiteSpace, TextareaItem, Button, Popover} from 'antd-mobile'
-// import { ImagePicker, WingBlank, SegmentedControl } from 'antd-mobile';
+import formstate from '../../component/formstate/formstate'
+import { connect } from 'react-redux'
+import { newposts } from '../../redux/post.redux'
+import { Redirect } from 'react-router-dom'
 
-// const data = [{
-//   url: 'https://zos.alipayobjects.com/rmsportal/PZUUCKTRIHWiZSY.jpeg',
-//   id: '2121',
-// }, {
-//   url: 'https://zos.alipayobjects.com/rmsportal/hqQWgTXdrlmVVYi.jpeg',
-//   id: '2122',
-// }];
-
-const Item = Popover.Item
-
+@connect(
+    state=>state,
+    {newposts}
+)
+@formstate
 class NewPost extends React.Component {
-  
   constructor(props) {
-		super(props)
+        super(props)
+        this.handlepost = this.handlepost.bind(this)
         this.state = {
             visible: false
         }
+    }
+    handlepost(){
+        console.log(this.props);
+        this.props.newposts(this.props.state)
     }
     
     onSelect(opt) {
@@ -35,14 +37,20 @@ class NewPost extends React.Component {
         });
     }
   render() {
-    console.log(this.props)
+    const Item = Popover.Item
+
     let offsetX = -10; // just for pc demo
         if (/(iPhone|iPad|iPod|iOS|Android)/i.test(navigator.userAgent)) {
             offsetX = -26;
         }
     return (
       <div>
-      <NavBar className='fixd-header' mode='light' icon={<Icon type="left" />}
+      {this.props.post.redirectTo?<Redirect to={this.props.post.redirectTo}/>:null}
+      <NavBar 
+      className='fixd-header' 
+      mode='light' 
+      icon={<Icon type="left" />}
+      onLeftClick={() => {this.props.history.goBack()}}
       rightContent={<Popover mask
                                      visible={this.state.visible}
                                      overlay={[
@@ -73,14 +81,15 @@ class NewPost extends React.Component {
                                 </div>
                             </Popover>}>发布新帖</NavBar>
         <List style={{marginTop:'3rem'}}>
-        <InputItem placeholder="标题" ></InputItem>
+        <InputItem placeholder="标题" onChange={v=>this.props.handleChange('title',v)}></InputItem>
         <WhiteSpace/>
         <TextareaItem placeholder='内容...' 
-            rows={10} count={1000}
+            rows={10} count={1000} 
+            onChange={v=>this.props.handleChange('content',v)}
             >
         </TextareaItem>
         <WhiteSpace/>
-        <Button type='primary'>保存</Button>
+        <Button type='primary' onClick={this.handlepost}>发布</Button>
         </List>
       </div>
     )

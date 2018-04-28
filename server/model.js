@@ -28,6 +28,28 @@ const models = {
         'content':{'type':String,'require':true,'default':''},
         //每条消息创建时间
         'create_time':{'type':Date,'default':Date.now}
+    },
+    posts:{
+        'post_id':{'type':String, 'require':true},
+        // 帖子内容
+        post:[{
+            'author_id':{'type':String, 'require':true},
+            'title':{'type':String, 'require':true},
+            'content':{'type':String, 'require':true},
+            'post_time':{'type':Date,'default':Date.now}
+        }],
+        // 是否被收藏
+        collecttion:[{
+            'user_id':{'type':String},
+            'collect':{'type':Boolean,'default':false}
+        }],
+        // 评论
+        comment:[{
+            //评论人
+            'comment_id':{'type':String},
+            'content':{'type':String},
+            'comment_time':{'type':Date,'default':Date.now}
+        }]
     }
 }
 

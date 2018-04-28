@@ -1,25 +1,21 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { List,Badge } from 'antd-mobile'
+import icons from '../smallComponent/myicon/icons'
 
 @connect(
     state=>state
 )
+@icons
 class Msg extends React.Component {
     getLast(arr){
         return arr[arr.length-1]
-    }
-    avatar(ava){
-        return (
-            <svg className="icon-footer" aria-hidden="true">
-                                <use xlinkHref={"#icon-"+ava}></use>
-                            </svg>
-        )
     }
     render() {
         // if(!this.props.chat.chatmsg.length){
         //     return
         // }
+        console.log(this.props);
         const {chatmsg,users} = this.props.chat
         const Item = List.Item
         const Brief = Item.Brief
@@ -42,15 +38,21 @@ class Msg extends React.Component {
                     const targetid = LastItem.from==userid?LastItem.to:LastItem.from
                     const unreadNum = v.filter(v=>!v.read&&v.to==userid).length
                     return(
-                        <List key={LastItem._id}>
+                        <List key={LastItem._id} id="msgList">
                             <Item 
-                            thumb={this.avatar(users[targetid].avatar)}
+                            thumb={this.props.icons(users[targetid].avatar)}
                             extra={
                                 <div>
                                     {/* <p style={{fontSize:'10'}}>{LastItem.create_time}</p> */}
                                     <Badge text={unreadNum}></Badge>
                                 </div>
                                 }
+                                
+                            arrow="horizontal"
+                            platform="android"
+                            onClick={() => {
+                                this.props.history.push(`/chat/${targetid}`)
+                            }}
                             >
                                 {users[targetid].name}
                                 <Brief>{LastItem.content}</Brief>                                    {v[v.length]}

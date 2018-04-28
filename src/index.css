@@ -40,9 +40,18 @@ html:not([data-scale]) .am-card-body::before{
 #chat-page .am-list{
 	font-size: 16px;
 }
+
+#msgList .am-list-item .am-list-line .am-list-arrow-horizontal{
+	display: none;
+}
 .stick-footer{
 	z-index:10;
 	position: absolute;
 	bottom: 0;
 	width:100%;
+}
+
+#postcard .am-list-item .am-list-line .am-list-brief span{
+	display: inline-block;
+	margin-right: 1rem;
 }

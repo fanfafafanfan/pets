@@ -4,11 +4,14 @@ import { Result,List,Button,WhiteSpace,Modal } from 'antd-mobile'
 import browserCookies from 'browser-cookies'
 import {logoutSubmit} from '../../redux/user.redux'
 import {Redirect} from 'react-router-dom'
+import icons from '../smallComponent/myicon/icons'
+import './user.css'
 const alert = Modal.alert;
 @connect(
     state=>state.user,
     {logoutSubmit}
 )
+@icons
 class User extends React.Component {
     constructor(props) {
         super(props)
@@ -26,16 +29,15 @@ class User extends React.Component {
           ])
     }
     render() {
-        const {avatar,name,city,desc} = this.props
+        const {avatar,name,city,desc,icons} = this.props
         const Item = List.Item
         const Brief = Item.Brief
+        console.log(this.props);
         return this.props.user?(
 
-            <div>
+            <div id="me-icon">
             <Result
-                img={<svg className="me-icon" aria-hidden="true">
-                        <use xlinkHref={"#icon-"+avatar}></use>
-                    </svg>}
+                img={icons(avatar)}
                 title={name}
                 message={desc}
             />

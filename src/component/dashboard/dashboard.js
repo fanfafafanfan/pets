@@ -1,31 +1,21 @@
 import React from 'react'
-import {NavBar, Icon, TabBar} from 'antd-mobile'
+import {NavBar, Icon, TabBar,Popover} from 'antd-mobile'
 import {connect} from 'react-redux'
 import {Switch, Route} from 'react-router-dom'
 import Home from '../../component/home/home'
 import User from '../../component/user/user'
 import Msg from '../../component/msg/msg'
-import NavLinkBar from '../navlink/navlink'
-import {newpost} from '../../redux/user.redux'
+import NavLinkBar from './navlink'
+import {getPostList} from '../../redux/home.redux'
 import { getMsgList,sendMsg,recvMsg } from '../../redux/chat.redux'
-// function Home(){
-// 	return <h2>首页</h2>
-// }
-// function Msg(){
-// 	return <h2>消息列表页面</h2>
-// }
-// function User(){
-// 	return <h2>个人中心页面</h2>
-// }
 
 @connect(
 	state=>state,
-	{newpost,getMsgList,recvMsg }  
+	{getMsgList,recvMsg,getPostList}  
 )
 class Dashboard extends React.Component {
     constructor(props) {
 		super(props)
-		// this.getnewpost = this.getnewpost.bind(this)
         this.state = {
             visible: false
         }
@@ -45,52 +35,47 @@ class Dashboard extends React.Component {
         });
 	}
 
-	// getnewpost(){
-	// 	console.log(this.props);
-	// 	this.props.newpost()
-	// }
-
 	componentDidMount(){
 		if(!this.props.chat.chatmsg.length){
 			this.props.getMsgList()
 			this.props.recvMsg()
 		}
+		if(!this.props.home.postlist.length){
+			this.props.getPostList()
+		}
 		
 	}
 
     render(){
+		const Item = Popover.Item
         const {pathname} = this.props.location
 		const user = this.props.user
 		const navList = [
 			{
 				path:'/home',
 				text:'首页',
-                icon:'#icon-1',
-                iconactive:'#icon-1-copy',
+                icon:'1',
 				title:'首页',
 				component:Home
 			},
 			{
 				path:'/msg',
 				text:'消息',
-				icon:'#icon-2',
-                iconactive:'#icon-2-copy',
+				icon:'2',
 				title:'消息列表',
 				component:Msg
 			},
 			{
 				path:'/me',
 				text:'我',
-				icon:'#icon-3',
-                iconactive:'#icon-3-copy',
+				icon:'3',
 				title:'个人中心',
 				component:User
 			}
 		]
-
+		
         return(
             <div>
-				
 				<div style={{marginTop:45}}>
 					 <Switch>
 						{navList.map(v=>(
@@ -98,11 +83,19 @@ class Dashboard extends React.Component {
 						))}
 					</Switch>
 				</div>
-				<NavBar className='fixd-header' mode='dard' 
+				<NavBar 
+				className='fixd-header' 
+				mode='dard' 
 				rightContent={
-					pathname === '/home'?(<Icon key="1" type="ellipsis" onClick={()=>{this.props.newpost}} />):('')
-							}
-							>{navList.find(v=>v.path==pathname).title}</NavBar>
+					pathname === '/home'?(
+						<Icon 
+						key="1" 
+						type="ellipsis" 
+						onClick={()=>{
+							this.props.history.push('/newpost')
+							}} />):('')
+				}
+				>{navList.find(v=>v.path==pathname).title}</NavBar>
 				
 				<NavLinkBar data={navList}></NavLinkBar>
             </div>
@@ -111,3 +104,32 @@ class Dashboard extends React.Component {
 }
 
 export default Dashboard
+
+// rightContent={<Popover mask
+// 	visible={this.state.visible}
+// 	overlay={[
+// 		(<Item 
+// 		key="0" 
+// 		value="newpost" 
+// 		onClick={()=>{this.props.history.push('/newpost')}}
+// 		>发帖</Item>)
+// 	]}
+// 	popupAlign={{
+// 		overflow: {adjustY: 0, adjustX: 0},
+// 	}}
+// 	onVisibleChange={(e)=>this.handleVisibleChange(e)}
+// 	onSelect={(e)=> {
+// 		this.onSelect()
+// 	}}
+// >
+// <div style={{
+//    height: '100%',
+//    padding: '0 0.3rem',
+//    marginRight: '-0.3rem',
+//    display: 'flex',
+//    alignItems: 'center',
+// }}
+// >
+//    <Icon type="ellipsis"/>
+// </div>
+// </Popover>}

@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from '../../component/logo/logo';
+import Logo from '../../component/smallComponent/logo/logo';
 import {List, InputItem, WingBlank, WhiteSpace, Button} from 'antd-mobile';
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'

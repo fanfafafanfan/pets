@@ -3,11 +3,13 @@ import PropTypes from 'prop-types'
 import {TabBar} from 'antd-mobile'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
+import icons from '../smallComponent/myicon/icons'
 
 @withRouter
 @connect(
 	state=>state.chat
 )
+@icons
 class NavLinkBar extends React.Component {
 	// static propTypes = {
 	// 	data: PropTypes.array.isRequired
@@ -23,19 +25,13 @@ class NavLinkBar extends React.Component {
 						badge={v.path=='/msg'?this.props.unread:''}
 						key={v.path}
 						title={v.text}
-						icon={<svg className="icon-footer" aria-hidden="true">
-                                <use xlinkHref={v.icon}></use>
-                            </svg>}
-						selectedIcon={<svg className="icon-footer" aria-hidden="true">
-                                        <use xlinkHref={v.icon+"-copy"}></use>
-                                    </svg>}
+						icon={this.props.icons(v.icon)}
+						selectedIcon={this.props.icons(v.icon+"-copy")}
 						selected={pathname===v.path}
 						onPress={()=>{
 							this.props.history.push(v.path)
 						}}
-					>
-					
-					</TabBar.Item>
+					></TabBar.Item>
 				))}
 			</TabBar>
 		)

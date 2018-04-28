@@ -4,7 +4,6 @@ import { getRedirectPath } from '../util'
 const AUTH_SUCCESS = 'AUTH_SUCCESS'
 const ERROR_MSG = 'ERROR_MSG'
 const LOAD_DATA = 'LOAD_DATA'
-const NEW_POST = 'NEW_POST'
 const LOG_OUT = 'LOG_OUT'
 const initState={
     redirectTo:'',
@@ -23,30 +22,25 @@ export function user(state=initState,action) {
             return {...state,redirectTo:'',isAuth:false,msg:action.msg}
         case LOG_OUT:
             return {...initState,redirectTo:'/login'}
-        case NEW_POST:
-            return {...state,redirectTo:'/newpost'}
         default:
             return state
     }
-}
-
-function authSuccess(data) {
-    return {type:AUTH_SUCCESS, payload:data}
-}
-function errorMsg(msg) {
-    return { msg, type:ERROR_MSG }
 }
 
 export function logoutSubmit() {
     return {type:LOG_OUT}
 }
 
-export function newpost() {
-    return {type:NEW_POST}
-}
-
 export function loadData(userinfo) {
     return {type:LOAD_DATA, payload:userinfo}
+}
+
+function errorMsg(msg) {
+    return { msg, type:ERROR_MSG }
+}
+
+function authSuccess(data) {
+    return {type:AUTH_SUCCESS, payload:data}
 }
 export function update(data){
     return dispatch=>{
@@ -65,6 +59,7 @@ export function login({user,pwd}) {
     }
     return dispatch=>{
         axios.post('/user/login',{user,pwd}).then(res=>{
+            console.log(res);
             if(res.status==200&&res.data.code===0){
                 dispatch(authSuccess(res.data.data))
             }else{

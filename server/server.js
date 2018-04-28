@@ -4,12 +4,15 @@ const cookieParser = require('cookie-parser')
 const model = require('./model')
 const User = model.getModel('user')
 const Chat = model.getModel('chat')
+const Posts = model.getModel('posts')
 
 const app = express()
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
 
 const userRouter = require('./user')
+const chatRouter = require('./chat')
+const postsRouter = require('./posts')
 
 io.on('connection',function (socket) {
     // console.log('user login');
@@ -28,6 +31,8 @@ io.on('connection',function (socket) {
 app.use(cookieParser())
 app.use(bodyParser.json())
 app.use('/user',userRouter)
+app.use('/chat',chatRouter)
+app.use('/posts',postsRouter)
 
 server.listen(9093, function() {
     console.log('Node app start at port 9093')

@@ -2,16 +2,17 @@ import React from 'react'
 import {List, InputItem, NavBar, Icon, Grid} from 'antd-mobile'
 import io  from 'socket.io-client'
 import {connect} from 'react-redux'
-import { getMsgList,sendMsg,recvMsg } from '../../redux/chat.redux'
+import { getMsgList,sendMsg,recvMsg,readMsg } from '../../redux/chat.redux'
 import { getChatId,fixCarousel } from '../../util';
+import icons from '../smallComponent/myicon/icons'
 
 const socket = io('ws://localhost:9093')
 
 @connect(
     state=>state,
-    {getMsgList,sendMsg,recvMsg}
+    {getMsgList,sendMsg,recvMsg,readMsg}
 )
-
+@icons
 class Chat extends React.Component{
     constructor(props) {
         super(props)
@@ -23,12 +24,18 @@ class Chat extends React.Component{
             this.props.recvMsg()
         }
         fixCarousel()
+
         // socket.on('recvmsg',(data) => {
         //     this.setState({
         //         msg:[...this.state.msg,data.text]
         //     })
         // })
     }
+    componentWillUnmount() {
+        const to = this.props.match.params.userid
+        this.props.readMsg(to)
+    }
+    
     handleSubmit(){
         // socket.emit('sendmsg',{text:this.state.text})
         // this.setState({text:''})
@@ -41,13 +48,6 @@ class Chat extends React.Component{
             text:'',
             showEmoji:false
         })
-    }
-    avatar(ava){
-        return (
-            <svg className="icon-footer" aria-hidden="true">
-                                <use xlinkHref={"#icon-"+ava}></use>
-                            </svg>
-        )
     }
     render() {
         const emoji = '😀 😃 😄 😁 😆 😅 😂 😊 😇 🙂 🙃 😉 😌 😍 😘 😗 😙 😚 😋 😜 😝 😛 🤑 🤗 🤓 😎 😏 😒 😞 😔 😟 😕 🙁 😣 😖 😫 😩 😤 😠 😡 😶 😐 😑 😯 😦 😧 😮 😲 😵 😳 😱 😨 😰 😢 😥 😭 😓 😪 😴 🙄 🤔 😬 🤐 😷 🤒 🤕 😈 👿 👹 👺 💩 👻 💀 ☠️ 👽 👾 🤖 🎃 😺 😸 😹 😻 😼 😽 🙀 😿 😾 👐 🙌 👏 🙏 👍 👎 👊 ✊ 🤘 👌 👈 👉 👆 👇 ✋  🖐 🖖 👋  💪 🖕 ✍️  💅 🖖 💄 💋 👄 👅 👂 👃 👁 👀 '
@@ -76,14 +76,14 @@ class Chat extends React.Component{
                     return v.from==userid?(
                         <List key={v._id}>
                             <Item
-                            thumb={this.avatar(users[v.from].avatar)}
+                            thumb={this.props.icons(users[v.from].avatar)}
                             >{v.content}</Item>
                         </List>
                         ):(
                         <List key={v._id}>
                             <Item 
                             className='chat-me'
-                            extra={this.avatar(this.props.user.avatar)}
+                            extra={this.props.icons(this.props.user.avatar)}
                             >{v.content}</Item>
                         </List>
                             )
