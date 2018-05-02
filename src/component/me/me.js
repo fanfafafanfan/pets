@@ -5,7 +5,7 @@ import browserCookies from 'browser-cookies'
 import {logoutSubmit} from '../../redux/user.redux'
 import {Redirect} from 'react-router-dom'
 import icons from '../smallComponent/myicon/icons'
-import './user.css'
+import './me.css'
 const alert = Modal.alert;
 @connect(
     state=>state.user,

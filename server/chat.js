@@ -30,7 +30,6 @@ Router.post('/readmsg',function (req,res) {
         {'$set':{read:true}},
         {'multi':true},
         function (err,doc) {
-            console.log(doc);
         if (!err) {
             return res.json({code:0,num:doc.nModified})
         }

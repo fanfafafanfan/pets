@@ -3,7 +3,7 @@ import {NavBar, Icon, TabBar,Popover} from 'antd-mobile'
 import {connect} from 'react-redux'
 import {Switch, Route} from 'react-router-dom'
 import Home from '../../component/home/home'
-import User from '../../component/user/user'
+import Me from '../../component/me/me'
 import Msg from '../../component/msg/msg'
 import NavLinkBar from './navlink'
 import {getPostList} from '../../redux/home.redux'
@@ -69,7 +69,7 @@ class Dashboard extends React.Component {
 				text:'我',
 				icon:'3',
 				title:'个人中心',
-				component:User
+				component:Me
 			}
 		]
 		
