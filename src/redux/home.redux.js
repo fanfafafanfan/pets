@@ -19,7 +19,7 @@ function postlist(list,users) {
     return {type:POST_LIST,payload:{list,users}}
 }
 
-export function getPostList(type) {
+export function getPostList() {
     return dispatch=>{
         axios.get('/posts/postlist')       
         .then(res=>{

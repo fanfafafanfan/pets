@@ -1,0 +1,11 @@
+#postdetail .am-list-item .am-list-line .am-list-extra .am-button{
+    width: 70px;
+    height: 35px;
+    font-size: 15px;
+    margin-left: auto;
+    margin-top: 10px;
+    line-height: 36px;
+}
+.icon-footer{
+    width: 1.6rem;
+}

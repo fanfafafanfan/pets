@@ -8,10 +8,11 @@ import Msg from '../../component/msg/msg'
 import NavLinkBar from './navlink'
 import {getPostList} from '../../redux/home.redux'
 import { getMsgList,sendMsg,recvMsg } from '../../redux/chat.redux'
+import {favorlist} from '../../redux/post.redux'
 
 @connect(
 	state=>state,
-	{getMsgList,recvMsg,getPostList}  
+	{getMsgList,recvMsg,getPostList,favorlist}  
 )
 class Dashboard extends React.Component {
     constructor(props) {
@@ -40,10 +41,8 @@ class Dashboard extends React.Component {
 			this.props.getMsgList()
 			this.props.recvMsg()
 		}
-		if(!this.props.home.postlist.length){
-			this.props.getPostList()
-		}
-		
+		this.props.getPostList()
+		this.props.favorlist()
 	}
 
     render(){
@@ -88,12 +87,15 @@ class Dashboard extends React.Component {
 				mode='dard' 
 				rightContent={
 					pathname === '/home'?(
-						<Icon 
-						key="1" 
-						type="ellipsis" 
+						<svg 
+						className="icon-footer" 
+						aria-hidden="true"
 						onClick={()=>{
 							this.props.history.push('/newpost')
-							}} />):('')
+							}}
+						>
+							<use xlinkHref={"#icon-brush"}></use>
+						</svg>):('')
 				}
 				>{navList.find(v=>v.path==pathname).title}</NavBar>
 				

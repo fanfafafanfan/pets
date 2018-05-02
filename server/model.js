@@ -30,26 +30,24 @@ const models = {
         'create_time':{'type':Date,'default':Date.now}
     },
     posts:{
+        'author_id':{'type':String, 'require':true},
+        'title':{'type':String, 'require':true},
+        'content':{'type':String, 'require':true},
+        'post_time':{'type':Date,'default':Date.now}
+    },
+    // 是否被收藏
+    collection:{
         'post_id':{'type':String, 'require':true},
-        // 帖子内容
-        post:[{
-            'author_id':{'type':String, 'require':true},
-            'title':{'type':String, 'require':true},
-            'content':{'type':String, 'require':true},
-            'post_time':{'type':Date,'default':Date.now}
-        }],
-        // 是否被收藏
-        collecttion:[{
-            'user_id':{'type':String},
-            'collect':{'type':Boolean,'default':false}
-        }],
-        // 评论
-        comment:[{
-            //评论人
-            'comment_id':{'type':String},
-            'content':{'type':String},
-            'comment_time':{'type':Date,'default':Date.now}
-        }]
+        'user_id':{'type':String},
+        'collect':{'type':Boolean,'default':false}
+    },
+     // 评论
+     comment:{
+        'post_id':{'type':String, 'require':true},
+        //评论人        
+        'comment_id':{'type':String},
+        'content':{'type':String},
+        'comment_time':{'type':Date,'default':Date.now}
     }
 }
 

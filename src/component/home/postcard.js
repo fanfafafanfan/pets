@@ -8,9 +8,9 @@ import icons from '../smallComponent/myicon/icons'
 @icons
 class PostCard extends React.Component{
     // 跳转到帖子详情的页面
-    handleClick(v){
+    handleClick(v,id){
         // console.log(this.props)
-        this.props.history.push(`/postdetail/${v}`)
+        this.props.history.push(`/postdetail/${v}/${id}`)
     }
     cardavatar(id){
         const users = this.props.data.users
@@ -26,27 +26,14 @@ class PostCard extends React.Component{
     const Item = List.Item
     const Brief = Item.Brief
     const postlists = this.props.data.postlist
-    const postcards= []
-    postlists?(postlists.forEach(v => {
-        v.post.map(p=>(
-            // console.log(p)
-            postcards.push(p)
-        ))
-    })):''
-    
 
      return (
          <div id="postcard">
-             <WhiteSpace/>
              {
-                 (postlists)?postlists.map(v=>(
-                     v.post.map(p=>(
-                         <List key={p._id} 
-                           
-                            >
+                 (postlists)?postlists.map(p=>(
+                         <List key={p._id}>
                                 <Item
                                 platform="android"
-
                                 wrap
                                 onClick={()=>this.handleClick(p._id)}
                                 >
@@ -60,9 +47,9 @@ class PostCard extends React.Component{
                                         }</Brief>  
                                 </Item>
                             </List> 
-                     ))
                     )):null
                 }
+            <WhiteSpace/>                
          </div>
      );
  }

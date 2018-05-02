@@ -15,7 +15,6 @@ class Home extends React.Component{
     }
     
     render() {
-        console.log(this.props);
         return <PostCard data={this.props.home}></PostCard>
     }
 }

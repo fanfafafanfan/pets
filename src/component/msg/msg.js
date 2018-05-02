@@ -12,10 +12,6 @@ class Msg extends React.Component {
         return arr[arr.length-1]
     }
     render() {
-        // if(!this.props.chat.chatmsg.length){
-        //     return
-        // }
-        console.log(this.props);
         const {chatmsg,users} = this.props.chat
         const Item = List.Item
         const Brief = Item.Brief

@@ -18,8 +18,6 @@ class User extends React.Component {
         this.logout = this.logout.bind(this)
     }
     logout(){
-        // browserCookies.erase('userid')
-        // console.log('logout')
         alert('注销', '确认退出登录吗?', [
             { text: '取消', onPress: () => console.log('cancel') },
             { text: '确认', onPress: () => {
@@ -32,7 +30,6 @@ class User extends React.Component {
         const {avatar,name,city,desc,icons} = this.props
         const Item = List.Item
         const Brief = Item.Brief
-        console.log(this.props);
         return this.props.user?(
 
             <div id="me-icon">
@@ -41,24 +38,37 @@ class User extends React.Component {
                 title={name}
                 message={desc}
             />
-            <List renderHeader={()=>'简介'}  className="my-list">
+            <WhiteSpace/>
+            <List className="my-list">
                 <Item
                     multipleLine
                     arrow="horizontal"
                     onClick={() => {}}
                     platform="android"
                     >
-                    {name}
+                    修改资料
                 </Item>
             </List>
-            <List renderHeader={() => 'Subtitle'} className="my-list">
+            <WhiteSpace/>
+            <List className="my-list">
                 <Item
                 arrow="horizontal"
-                thumb="https://zos.alipayobjects.com/rmsportal/dNuvNrtqUztHCwM.png"
+                platform="android"
                 multipleLine
                 onClick={() => {}}
                 >
-                Title <Brief>subtitle</Brief>
+                我发布的
+                </Item>
+            </List>
+            <WhiteSpace/>
+            <List className="my-list">
+                <Item
+                arrow="horizontal"
+                platform="android"
+                multipleLine
+                onClick={() => {}}
+                >
+                我收藏的
                 </Item>
             </List>
             <WhiteSpace/>
