@@ -13,10 +13,15 @@ import { Redirect } from 'react-router-dom'
 class NewPost extends React.Component {
   constructor(props) {
         super(props)
+        this.state = {
+          ok:''
+        }
         this.handlepost = this.handlepost.bind(this)
     }
     handlepost(){
-        console.log(this.props);
+        this.setState({
+          ok:'ok'
+        })
         this.props.newposts(this.props.state)
     }
     
@@ -24,7 +29,7 @@ class NewPost extends React.Component {
     const Item = Popover.Item
     return (
       <div>
-      {this.props.post.redirectTo?<Redirect to={this.props.post.redirectTo}/>:null}
+      {this.props.post.redirectTo&&this.state.ok=='ok'?<Redirect to={this.props.post.redirectTo}/>:null}
       <NavBar 
       className='fixd-header' 
       mode='light' 

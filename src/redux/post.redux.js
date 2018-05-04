@@ -3,6 +3,7 @@ import axios from 'axios'
 const POST_NEW = 'POST_NEW'
 const ERROR_MSG = 'ERROR_MSG'
 const FAVOR_LIST = 'FAVOR_LIST'
+const MY_POST = 'MY_POST'
 const initState = {
     redirectTo:'',
     title:'',
@@ -12,9 +13,11 @@ const initState = {
 export function post(state=initState,action) {
     switch (action.type) {
         case POST_NEW:
-            return {...state,...action.payload,errmsg:'',redirectTo:'/home'}
+            return {msg:'ok',errmsg:'',redirectTo:'/home'}
         case FAVOR_LIST:
             return {...state,favorlist:action.payload}
+        case MY_POST:
+            return {...state,mypost:action.payload}
         case ERROR_MSG:
             return {...state,redirectTo:'',errmsg:action.errmsg}
         default:
@@ -24,6 +27,31 @@ export function post(state=initState,action) {
 
 function errorMsg(errmsg) {
     return { errmsg, type:ERROR_MSG }
+}
+
+function postmy(data) {
+    return {type:MY_POST, payload:data}
+}
+export function mypost(){
+    return dispatch=>{
+        axios.get('/posts/mypost').then(res=>{
+            if (res.status==200&&res.data.code===0) {
+                dispatch(postmy(res.data.data))
+            }
+        })
+    }
+}
+
+export function deletepost(postid) {
+    return dispatch=>{
+        axios.post('/posts/deletepost',{postid}).then(res=>{
+            if (res.status==200&&res.data.code===0) {
+                // dispatch()
+            }else{
+                dispatch(errorMsg(res.data.msg))
+            }
+        })
+    }
 }
 
 function listfavor(data) {

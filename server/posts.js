@@ -8,6 +8,25 @@ const Posts = model.getModel('posts')
 const Collection = model.getModel('collection')
 const Comment = model.getModel('comment')
 
+//删除帖子
+Router.post('/deletepost',function (req,res) {
+    const {postid} = req.body
+    console.log(postid);
+    Posts.remove({_id:postid},function (err,doc) {
+        if(err){
+            return res.json({code:1,msg:'后端出错了'})
+        }
+        return res.json({code:0,data:doc})
+    })
+})
+//我的帖子列表
+Router.get('/mypost',function(req,res){
+    const userid = req.cookies.userid
+    Posts.find({author_id:userid},function (err,doc) {
+        console.log(doc);
+            return res.json({code:0,data:doc})
+    })
+})
 //收藏列表
 Router.get('/favorlist',function(req,res){
     Collection.find({},function (err,doc) {

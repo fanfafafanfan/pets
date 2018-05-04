@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
 import {List,Brief, WhiteSpace,WingBlank} from 'antd-mobile'
 import {withRouter} from 'react-router-dom'
 import icons from '../smallComponent/myicon/icons'
-
 @withRouter
 @icons
 class PostCard extends React.Component{
@@ -26,7 +26,8 @@ class PostCard extends React.Component{
     const Item = List.Item
     const Brief = Item.Brief
     const postlists = this.props.data
-
+    const showDelete = this.props.showDelete
+    console.log(this.props);
      return (
          <div id="postcard" style={{marginTop:'3rem'}}>
              {

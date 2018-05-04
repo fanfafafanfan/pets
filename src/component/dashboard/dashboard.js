@@ -8,11 +8,11 @@ import Msg from '../../component/msg/msg'
 import NavLinkBar from './navlink'
 import {getPostList} from '../../redux/home.redux'
 import { getMsgList,sendMsg,recvMsg } from '../../redux/chat.redux'
-import {favorlist} from '../../redux/post.redux'
+import {favorlist,mypost} from '../../redux/post.redux'
 
 @connect(
 	state=>state,
-	{getMsgList,recvMsg,getPostList,favorlist}  
+	{getMsgList,recvMsg,getPostList,favorlist,mypost}  
 )
 class Dashboard extends React.Component {
     constructor(props) {
@@ -43,6 +43,7 @@ class Dashboard extends React.Component {
 		}
 		this.props.getPostList()
 		this.props.favorlist()
+		this.props.mypost()
 	}
 
     render(){
