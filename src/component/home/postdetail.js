@@ -4,6 +4,7 @@ import {List, InputItem, NavBar, Icon, Grid, WingBlank, WhiteSpace, Button} from
 import icons from '../smallComponent/myicon/icons'
 import './postdetail.css'
 import { favorpost } from '../../redux/post.redux'
+import { fixCarousel } from '../../util';
 @connect(
     state=>state,
     {favorpost}
@@ -59,14 +60,17 @@ export default class Postdetail extends React.Component {
             }
         })
         const userAvatar = this.props.home.users
-        
+        const emoji = '😀 😃 😄 😁 😆 😅 😂 😊 😇 🙂 🙃 😉 😌 😍 😘 😗 😙 😚 😋 😜 😝 😛 🤑 🤗 🤓 😎 😏 😒 😞 😔 😟 😕 🙁 😣 😖 😫 😩 😤 😠 😡 😶 😐 😑 😯 😦 😧 😮 😲 😵 😳 😱 😨 😰 😢 😥 😭 😓 😪 😴 🙄 🤔 😬 🤐 😷 🤒 🤕 😈 👿 👹 👺 💩 👻 💀 ☠️ 👽 👾 🤖 🎃 😺 😸 😹 😻 😼 😽 🙀 😿 😾 👐 🙌 👏 🙏 👍 👎 👊 ✊ 🤘 👌 👈 👉 👆 👇 ✋  🖐 🖖 👋  💪 🖕 ✍️  💅 🖖 💄 💋 👄 👅 👂 👃 👁 👀 '
+										.split(' ')
+										.filter(v=>v)
+										.map(v=>({text:v}))
         return (
             <div id="postdetail">
                 <NavBar 
                 mode='light'
                 icon={<Icon type="left" />}
                 onLeftClick={() => {this.props.history.goBack()}}
-                rightContent={<svg 
+                rightContent={this.props.user._id==postDetail[0].author_id?'':<svg 
 						className="icon-footer" 
 						aria-hidden="true"
 						onClick={()=>{
@@ -96,6 +100,50 @@ export default class Postdetail extends React.Component {
                     <List>
                         <Item wrap>{postDetail[0].content}</Item>
                     </List>
+                    <List renderHeader={() => '评论区'}>
+                        <Item wrap>{postDetail[0].content}</Item>
+                        <Item wrap>{postDetail[0].content}</Item>
+                        <Item wrap>{postDetail[0].content}</Item>
+                        <Item wrap>{postDetail[0].content}</Item>
+                    </List>
+
+                    <div className="stick-footer">
+                    <List>
+                        <InputItem
+                        placeholder='发表评论'
+                        value={this.state.text}
+                        onChange={v=>{
+                            this.setState({text:v})
+                        }}
+                        extra={
+                            <div>
+                            <span style={{marginRight:'0.8rem',display:'inline-block',height:'1.5rem',marginTop:'1px',fontSize:'18px'}}
+                            onClick={()=>{
+                                this.setState({
+                                    showEmoji:!this.state.showEmoji
+                                    })
+                                fixCarousel()
+                                }}
+                            >🙂</span>
+                            <span style={{display:'inline-block'}} 
+                            onClick={()=>this.handleSubmit()}>评论</span>
+                            </div>
+                        }
+                        ></InputItem>
+                    </List>
+                    {this.state.showEmoji?<Grid
+                        data={emoji}
+                        columnNum={8}
+                        carouselMaxRow={4}
+                        isCarousel={true}
+                        onClick={el=>{
+                            this.setState({
+                                text:this.state.text+el.text
+                            })
+                        }}
+                        />:null}
+                    
+                </div>
             </div>
         )
     }

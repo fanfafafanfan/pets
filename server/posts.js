@@ -55,7 +55,7 @@ Router.get('/postlist',function(req,res){
     User.find({},function (e,userdoc) {
         let users= {}
         userdoc.forEach(v=>{
-            users[v._id] = {user:v.user,name:v.name,avatar:v.avatar}
+            users[v._id] = {user:v.user,type:v.type,name:v.name,avatar:v.avatar,city:v.city}
         })
         Posts.find({},function (err,doc) {
             return res.json({code:0,list:doc,users:users})

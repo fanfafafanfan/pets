@@ -14,8 +14,10 @@ const models = {
         'name':{'type':String},
         //城市
         'city':{'type':String},
-        //描述
-        'desc':{'type':String}
+        //简介
+        'desc':{'type':String},
+        //性别(领养者)
+        'sex' :{'type':String}
     },
     chat:{
         // 每个聊天唯一标识 from sb to sb

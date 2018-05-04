@@ -14,6 +14,9 @@ import PostDetail from './component/home/postdetail'
 import Dashboard from './component/dashboard/dashboard'
 import AuthRoute from './component/authroute/authroute'
 import Chat from './component/msg/chat'
+import Mypost from './component/me/mypost'
+import Myfavor from './component/me/myfavor'
+import Reviseme from './component/me/reviseme'
 import reducers from './reducer'
 import './config'
 import './index.css'
@@ -29,6 +32,9 @@ ReactDom.render(
 			<div>
 				<AuthRoute></AuthRoute>
 				<Switch>
+					<Route path='/reviseme' component={Reviseme}/>
+					<Route path='/mypost' component={Mypost}/>
+					<Route path='/myfavor' component={Myfavor}/>
 					<Route path='/postdetail/:postid' component={PostDetail}/>
 					<Route path='/newpost' component={NewPost}/>
 					<Route path='/lingyanginfo' component={LingyangInfo}/>

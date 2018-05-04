@@ -26,6 +26,11 @@ class User extends React.Component {
             } },
           ])
     }
+    handleClick(){
+        const userid = this.props._id
+        const type = this.props.type
+        this.props.history.push(`/${type}info/${userid}`)
+    }
     render() {
         const {avatar,name,city,desc,icons} = this.props
         const Item = List.Item
@@ -43,7 +48,7 @@ class User extends React.Component {
                 <Item
                     multipleLine
                     arrow="horizontal"
-                    onClick={() => {}}
+                    onClick={() => {this.handleClick()}}
                     platform="android"
                     >
                     修改资料
@@ -55,9 +60,9 @@ class User extends React.Component {
                 arrow="horizontal"
                 platform="android"
                 multipleLine
-                onClick={() => {}}
+                onClick={() => {this.props.history.push('/mypost')}}
                 >
-                我发布的
+                我的帖子
                 </Item>
             </List>
             <WhiteSpace/>
@@ -66,9 +71,9 @@ class User extends React.Component {
                 arrow="horizontal"
                 platform="android"
                 multipleLine
-                onClick={() => {}}
+                onClick={() => {this.props.history.push('/myfavor')}}
                 >
-                我收藏的
+                我的收藏
                 </Item>
             </List>
             <WhiteSpace/>

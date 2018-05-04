@@ -8,12 +8,12 @@ import icons from '../smallComponent/myicon/icons'
 @icons
 class PostCard extends React.Component{
     // 跳转到帖子详情的页面
-    handleClick(v,id){
+    handleClick(id){
         // console.log(this.props)
-        this.props.history.push(`/postdetail/${v}/${id}`)
+        this.props.history.push(`/postdetail/${id}`)
     }
     cardavatar(id){
-        const users = this.props.data.users
+        const users = this.props.users
         return {avatar:users[id].avatar,name:users[id].name}
     }
     getCardContent(str){
@@ -25,10 +25,10 @@ class PostCard extends React.Component{
  render() {
     const Item = List.Item
     const Brief = Item.Brief
-    const postlists = this.props.data.postlist
+    const postlists = this.props.data
 
      return (
-         <div id="postcard">
+         <div id="postcard" style={{marginTop:'3rem'}}>
              {
                  (postlists)?postlists.map(p=>(
                          <List key={p._id}>

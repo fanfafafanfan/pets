@@ -43,6 +43,7 @@ function authSuccess(data) {
     return {type:AUTH_SUCCESS, payload:data}
 }
 export function update(data){
+    console.log(data);
     return dispatch=>{
         axios.post('/user/update',data).then(res=>{
             if(res.status==200&&res.data.code===0){
