@@ -17,3 +17,18 @@
     float: right;
     margin-left: 5px;
 }
+
+#comment .am-list-item .am-list-thumb:first-child .icon-footer{
+    vertical-align: 1.8em;
+}
+#comment .am-list-item .am-list-line .am-list-content span{
+    font-size: 16px;
+    margin-right: 10px;
+}
+#comment .am-list-item .am-list-line .am-list-content .time{
+    color: #888;
+    font-size: 15px;
+}
+#comment .am-list-item .am-list-line .am-list-content .empty{
+    font-size: 15px;
+}

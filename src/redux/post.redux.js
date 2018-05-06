@@ -5,6 +5,7 @@ const ERROR_MSG = 'ERROR_MSG'
 const FAVOR_LIST = 'FAVOR_LIST'
 const MY_POST = 'MY_POST'
 const UPDATE_POST = 'UPDATE_POST'
+const POST_COMMENT = 'POST_COMMENT'
 const initState = {
     redirectTo:'',
     title:'',
@@ -21,6 +22,8 @@ export function post(state=initState,action) {
             return {...state,favorlist:action.payload}
         case MY_POST:
             return {...state,mypost:action.payload}
+        case POST_COMMENT:
+            return {...state,commentbyid:action.payload}
         case ERROR_MSG:
             return {...state,redirectTo:'',errmsg:action.errmsg}
         default:
@@ -30,6 +33,39 @@ export function post(state=initState,action) {
 
 function errorMsg(errmsg) {
     return { errmsg, type:ERROR_MSG }
+}
+
+function commentpost({allcomment,postid}) {
+    const commentbyid = []
+    allcomment.forEach(v => {
+        if(v.post_id == postid){
+            commentbyid.push(v)
+        }
+    });
+    return {type:POST_COMMENT,payload:commentbyid}
+}
+export function postcomment(postid) {
+    return dispatch=>{
+        axios.get('/posts/postcomment').then(res=>{
+            if (res.status==200&&res.data.code===0) {
+                dispatch(commentpost({allcomment:res.data.data,postid}))
+            }else{
+                dispatch(errorMsg(res.data.msg))
+            }
+        })
+    }
+}
+
+export function newcomment(data) {
+    return dispatch=>{
+        axios.post('/posts/newcomment',{data}).then(res=>{
+            if (res.status==200&&res.data.code===0) {
+                // dispatch(postUpdate(res.data.data))
+            }else{
+                dispatch(errorMsg(res.data.msg))
+            }
+        })
+    }
 }
 
 function postUpdate(data) {
@@ -53,7 +89,6 @@ function postmy(data) {
 export function mypost(){
     return dispatch=>{
         axios.get('/posts/mypost').then(res=>{
-            console.log(res);
             if (res.status==200&&res.data.code===0) {
                 dispatch(postmy(res.data.data))
             }
@@ -102,7 +137,6 @@ function postNew(data) {
     return {type:POST_NEW, payload:data}
 }
 export function newposts({title,content}) {
-    console.log(title,content);
     if(!title||!content) {
         return errorMsg('必须输入标题和内容')
     }

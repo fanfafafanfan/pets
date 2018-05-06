@@ -15,7 +15,7 @@ const initState={
 export function user(state=initState,action) {
     switch (action.type) {
         case AUTH_SUCCESS: 
-            return {...state,msg:'',redirectTo:getRedirectPath(action.payload),...action.payload}
+            return {...state,msg:'',redirectTo:'/me',...action.payload}
         case LOAD_DATA:
             return {...state,...action.payload}
         case ERROR_MSG:
@@ -24,6 +24,23 @@ export function user(state=initState,action) {
             return {...initState,redirectTo:'/login'}
         default:
             return state
+    }
+}
+
+export function revise(data) {
+    return dispatch=>{
+        for(var key in data) {
+            if(data[key] === ''||data[key].length<1) {
+              delete data[key]
+            }
+         }
+        axios.post('/user/revise',data).then(res=>{
+            if(res.status==200&&res.data.code===0){
+                dispatch(authSuccess(res.data.data))
+            }else{
+                dispatch(errorMsg(res.data.msg))
+            }
+        })
     }
 }
 
@@ -43,7 +60,6 @@ function authSuccess(data) {
     return {type:AUTH_SUCCESS, payload:data}
 }
 export function update(data){
-    console.log(data);
     return dispatch=>{
         axios.post('/user/update',data).then(res=>{
             if(res.status==200&&res.data.code===0){

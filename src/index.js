@@ -16,6 +16,8 @@ import AuthRoute from './component/authroute/authroute'
 import Chat from './component/msg/chat'
 import Mypost from './component/me/mypost'
 import Postupdate from './component/me/postupdate'
+import Lingyanginfoupdate from './component/me/lingyanginfoupdate'
+import Jiuzhuinfoupdate from './component/me/jiuzhuinfoupdate'
 import Myfavor from './component/me/myfavor'
 import Reviseme from './component/me/reviseme'
 import reducers from './reducer'
@@ -39,6 +41,8 @@ ReactDom.render(
 					<Route path='/myfavor' component={Myfavor}/>
 					<Route path='/postdetail/:postid' component={PostDetail}/>
 					<Route path='/newpost' component={NewPost}/>
+					<Route path='/lingyanginfoupdate' component={Lingyanginfoupdate}/>
+					<Route path='/jiuzhuinfoupdate' component={Jiuzhuinfoupdate}/>
 					<Route path='/lingyanginfo' component={LingyangInfo}/>
 					<Route path='/jiuzhuinfo' component={JiuzhuInfo}/>
 					<Route path='/login' component={Login}/>

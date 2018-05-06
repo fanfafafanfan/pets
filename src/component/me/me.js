@@ -27,9 +27,8 @@ class User extends React.Component {
           ])
     }
     handleClick(){
-        const userid = this.props._id
         const type = this.props.type
-        this.props.history.push(`/${type}info/${userid}`)
+        this.props.history.push(`/${type}infoupdate`)
     }
     render() {
         const {avatar,name,city,desc,icons} = this.props

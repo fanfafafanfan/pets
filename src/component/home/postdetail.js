@@ -3,12 +3,12 @@ import {connect} from 'react-redux'
 import {List, InputItem, NavBar, Icon, Grid, WingBlank, WhiteSpace, Button} from 'antd-mobile'
 import icons from '../smallComponent/myicon/icons'
 import './postdetail.css'
-import { favorpost } from '../../redux/post.redux'
+import { favorpost, newcomment, postcomment } from '../../redux/post.redux'
 import {getPostList} from '../../redux/home.redux'
 import { fixCarousel } from '../../util';
 @connect(
     state=>state,
-    {favorpost,getPostList}
+    {favorpost,getPostList,newcomment,postcomment}
 )
 @icons
 export default class Postdetail extends React.Component {
@@ -20,6 +20,7 @@ export default class Postdetail extends React.Component {
     }
     componentDidMount() {
         this.props.getPostList()
+        this.props.postcomment(this.props.match.params.postid)                
     }
     componentWillMount(){
         const favorlist = this.props.post.favorlist
@@ -36,7 +37,6 @@ export default class Postdetail extends React.Component {
                 this.setState({favor:'favor'})
             }
         }
-        
     }
     componentWillUnmount() {
         const postid = this.props.match.params.postid
@@ -65,10 +65,20 @@ export default class Postdetail extends React.Component {
         const s = date.getSeconds();
         return Y+M+D+h+m+s;
     }
+    handleSubmit(postid){
+        this.props.newcomment({postid:postid,text:this.state.text})
+        this.setState({
+            text:'',
+            showEmoji:false
+        })
+        this.props.postcomment(this.props.match.params.postid)        
+    }
     render() {
+        console.log(this.state);
         const Item = List.Item
         const Brief = Item.Brief
         const postid = this.props.match.params.postid
+        const commentlist = this.props.post.commentbyid
         const postdetail = this.props.home.postlist
         const postDetail = []
         postdetail.forEach(v => {
@@ -117,12 +127,30 @@ export default class Postdetail extends React.Component {
                     <List>
                         <Item wrap>{postDetail[0].content}</Item>
                     </List>
-                    <List renderHeader={() => '评论区'}>
-                        <Item wrap>{postDetail[0].content}</Item>
-                        <Item wrap>{postDetail[0].content}</Item>
-                        <Item wrap>{postDetail[0].content}</Item>
-                        <Item wrap>{postDetail[0].content}</Item>
-                    </List>
+                    <div id="comment">
+                        <List renderHeader={() => '评论区'}>
+                            {
+                                commentlist&&commentlist.length>0?commentlist.map(v=>
+                                    <Item 
+                                        thumb={this.props.icons(userAvatar[v.comment_id].avatar)} 
+                                        multipleLine>
+                                    {
+                                        <div>
+                                            <span>{userAvatar[v.comment_id].name}</span>
+                                            <span className="time">{this.timestampToTime(v.comment_time)}</span>
+                                        </div>
+                                    } 
+                                    <Brief>{v.content}</Brief>
+                                    </Item>
+                                ):<Item>
+                                    <div className='empty'>
+                                        空空如也
+                                    </div>
+                                </Item>
+                            }
+                        </List>
+                    </div>
+                    
 
                     <div className="stick-footer">
                     <List>
@@ -143,7 +171,7 @@ export default class Postdetail extends React.Component {
                                 }}
                             >🙂</span>
                             <span style={{display:'inline-block'}} 
-                            onClick={()=>this.handleSubmit()}>评论</span>
+                            onClick={()=>this.handleSubmit(postDetail[0]._id)}>评论</span>
                             </div>
                         }
                         ></InputItem>

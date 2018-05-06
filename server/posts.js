@@ -8,33 +8,43 @@ const Posts = model.getModel('posts')
 const Collection = model.getModel('collection')
 const Comment = model.getModel('comment')
 
+//评论列表
+Router.get('/postcomment',function(req,res){
+    Comment.find({},function (err,doc) {
+            return res.json({code:0,data:doc})
+    })
+})
+//发表评论
+Router.post('/newcomment',function(req,res){
+    const userid = req.cookies.userid
+    if(!userid){
+        return json.dumps({code:1})
+    }
+    const {postid, text} = req.body.data
+    const commentmodel = new Comment({
+            post_id:postid,
+            comment_id:userid,
+            content:text
+    })
+    commentmodel.save(function(err,doc){
+        if (err) {
+            return res.json({code:1,msg:'后端出错了'})
+        }
+        return res.json({code:0,data:doc})
+    })
+})
 //修改帖子
 Router.post('/updatepost',function (req,res) {
     const userid = req.cookies.userid
     const {postid,state} = req.body
-    if (state!=='') {
-        if (state.title&&!state.content) {
-            Posts.update({_id:postid},{$set: {title: state.title,post_time: new Date().getTime()}},function (err,doc) {
-                if(err){
-                    return res.json({code:1,msg:'后端出错了'})
-                }
-            })
+    Posts.findByIdAndUpdate({_id:postid},state,function(err,doc){
+        if(doc){
+            const data = Object.assign(doc,state)
         }
-        else if (!state.title&&state.content){
-            Posts.update({_id:postid},{$set: {content: state.content,post_time: new Date().getTime()}},function (err,doc) {
-                if(err){
-                    return res.json({code:1,msg:'后端出错了'})
-                }
-            })
+        if (err) {
+            return res.json({code:1,msg:'后端出错了'})
         }
-        else if (state.title&&state.content){
-            Posts.update({_id:postid},{$set: {title: state.title,content: state.content,post_time: new Date().getTime()}},function (err,doc) {
-                if(err){
-                    return res.json({code:1,msg:'后端出错了'})
-                }
-            })
-        }
-    }
+    })
     Posts.find({author_id:userid},function (err,doc) {
         return res.json({code:0,data:doc})
     })

@@ -7,7 +7,20 @@ const User = model.getModel('user')
 const Chat = model.getModel('chat')
 const Posts = model.getModel('posts')
 const _filter = {'pwd':0,'__v':0}
-
+//修改个人信息
+Router.post('/revise',function (req,res) {
+    const userid = req.cookies.userid
+    const body = req.body
+    User.findByIdAndUpdate({_id:userid},body,function(err,doc){
+        if(doc){
+            const data = Object.assign(doc,body)
+            return res.json({code:0,data})
+        }
+        if (err) {
+            return res.json({code:1,msg:'后端出错了'})
+        }
+    })
+})
 // 查询所有user信息
 Router.get('/list',function(req,res){
     // User.remove({},function(e,d){})
