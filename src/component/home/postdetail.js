@@ -4,10 +4,11 @@ import {List, InputItem, NavBar, Icon, Grid, WingBlank, WhiteSpace, Button} from
 import icons from '../smallComponent/myicon/icons'
 import './postdetail.css'
 import { favorpost } from '../../redux/post.redux'
+import {getPostList} from '../../redux/home.redux'
 import { fixCarousel } from '../../util';
 @connect(
     state=>state,
-    {favorpost}
+    {favorpost,getPostList}
 )
 @icons
 export default class Postdetail extends React.Component {
@@ -16,6 +17,9 @@ export default class Postdetail extends React.Component {
         this.state = {
             favor: 'favor'
         }
+    }
+    componentDidMount() {
+        this.props.getPostList()
     }
     componentWillMount(){
         const favorlist = this.props.post.favorlist
@@ -47,7 +51,20 @@ export default class Postdetail extends React.Component {
     }
     handleClick(v){
 		this.props.history.push(`/chat/${v.author_id}`)
-	}
+    }
+    getLast(arr){
+        return arr[arr.length-1]
+    }
+    timestampToTime(timestamp) {
+        var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        const Y = date.getFullYear() + '-';
+        const M = (date.getMonth()+1 < 10 ? (date.getMonth()+1) : date.getMonth()+1) + '-';
+        const D = date.getDate() + ' '
+        const h = date.getHours() + ':'
+        const m = date.getMinutes() + ':'
+        const s = date.getSeconds();
+        return Y+M+D+h+m+s;
+    }
     render() {
         const Item = List.Item
         const Brief = Item.Brief
@@ -94,7 +111,7 @@ export default class Postdetail extends React.Component {
                             thumb={this.props.icons(userAvatar[postDetail[0].author_id].avatar)} 
                             multipleLine>
                         {userAvatar[postDetail[0].author_id].name} 
-                        <Brief>{postDetail[0].post_time}</Brief>
+                        <Brief>{this.timestampToTime(postDetail[0].post_time)}</Brief>
                         </Item>
                     </List>
                     <List>
@@ -110,7 +127,7 @@ export default class Postdetail extends React.Component {
                     <div className="stick-footer">
                     <List>
                         <InputItem
-                        placeholder='发表评论'
+                        placeholder='输入评论'
                         value={this.state.text}
                         onChange={v=>{
                             this.setState({text:v})

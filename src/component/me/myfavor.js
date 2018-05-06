@@ -25,14 +25,17 @@ export default class Myfavor extends React.Component {
                 favor.push(v.post_id)
             }
         })
-        const post = []
+        const posts = []
         postlists.forEach(p => {
             favor.forEach(v => {
-            if (p._id==v) {
-                post.push(p)
-            }
-        });
-        });
+                if (p._id==v) {
+                    posts.push(p)
+                }
+            })
+        })
+        const post = Object.values(posts).sort((a,b)=>{
+            Date.parse(b.post_time) - Date.parse(a.post_time)
+        })
         return (
             <div>
                 <NavBar 

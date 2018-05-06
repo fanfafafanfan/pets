@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import { List,Badge } from 'antd-mobile'
 import icons from '../smallComponent/myicon/icons'
+import './msg.css'
 
 @connect(
     state=>state
@@ -10,6 +11,16 @@ import icons from '../smallComponent/myicon/icons'
 class Msg extends React.Component {
     getLast(arr){
         return arr[arr.length-1]
+    }
+    timestampToTime(timestamp) {
+        var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        const Y = date.getFullYear() + '-';
+        const M = (date.getMonth()+1 < 10 ? (date.getMonth()+1) : date.getMonth()+1) + '-';
+        const D = date.getDate() + ' '
+        const h = date.getHours() + ':'
+        const m = date.getMinutes() + ':'
+        const s = date.getSeconds();
+        return Y+M+D+h+m+s;
     }
     render() {
         const {chatmsg,users} = this.props.chat
@@ -28,7 +39,7 @@ class Msg extends React.Component {
             return b_last - a_last
         })
         return (
-            <div>
+            <div id="msglist">
                 {chatList.map(v=>{
                     const LastItem = this.getLast(v)
                     const targetid = LastItem.from==userid?LastItem.to:LastItem.from
@@ -39,7 +50,7 @@ class Msg extends React.Component {
                             thumb={this.props.icons(users[targetid].avatar)}
                             extra={
                                 <div>
-                                    {/* <p style={{fontSize:'10'}}>{LastItem.create_time}</p> */}
+                                    <p>{this.timestampToTime(LastItem.create_time)}</p>
                                     <Badge text={unreadNum}></Badge>
                                 </div>
                                 }

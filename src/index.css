@@ -53,5 +53,5 @@ html:not([data-scale]) .am-card-body::before{
 
 #postcard .am-list-item .am-list-line .am-list-brief span{
 	display: inline-block;
-	margin-right: 1rem;
+	margin-right: 10px;
 }

@@ -24,12 +24,6 @@ class Chat extends React.Component{
             this.props.recvMsg()
         }
         fixCarousel()
-
-        // socket.on('recvmsg',(data) => {
-        //     this.setState({
-        //         msg:[...this.state.msg,data.text]
-        //     })
-        // })
     }
     componentWillUnmount() {
         const to = this.props.match.params.userid
@@ -37,9 +31,6 @@ class Chat extends React.Component{
     }
     
     handleSubmit(){
-        // socket.emit('sendmsg',{text:this.state.text})
-        // this.setState({text:''})
-        // console.log(this.props);
         const from = this.props.user._id
         const to =this.props.match.params.userid
         const msg = this.state.text

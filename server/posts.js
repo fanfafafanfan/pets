@@ -8,10 +8,40 @@ const Posts = model.getModel('posts')
 const Collection = model.getModel('collection')
 const Comment = model.getModel('comment')
 
+//修改帖子
+Router.post('/updatepost',function (req,res) {
+    const userid = req.cookies.userid
+    const {postid,state} = req.body
+    if (state!=='') {
+        if (state.title&&!state.content) {
+            Posts.update({_id:postid},{$set: {title: state.title,post_time: new Date().getTime()}},function (err,doc) {
+                if(err){
+                    return res.json({code:1,msg:'后端出错了'})
+                }
+            })
+        }
+        else if (!state.title&&state.content){
+            Posts.update({_id:postid},{$set: {content: state.content,post_time: new Date().getTime()}},function (err,doc) {
+                if(err){
+                    return res.json({code:1,msg:'后端出错了'})
+                }
+            })
+        }
+        else if (state.title&&state.content){
+            Posts.update({_id:postid},{$set: {title: state.title,content: state.content,post_time: new Date().getTime()}},function (err,doc) {
+                if(err){
+                    return res.json({code:1,msg:'后端出错了'})
+                }
+            })
+        }
+    }
+    Posts.find({author_id:userid},function (err,doc) {
+        return res.json({code:0,data:doc})
+    })
+})
 //删除帖子
 Router.post('/deletepost',function (req,res) {
     const {postid} = req.body
-    console.log(postid);
     Posts.remove({_id:postid},function (err,doc) {
         if(err){
             return res.json({code:1,msg:'后端出错了'})
@@ -23,7 +53,6 @@ Router.post('/deletepost',function (req,res) {
 Router.get('/mypost',function(req,res){
     const userid = req.cookies.userid
     Posts.find({author_id:userid},function (err,doc) {
-        console.log(doc);
             return res.json({code:0,data:doc})
     })
 })

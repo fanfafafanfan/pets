@@ -4,6 +4,7 @@ const POST_NEW = 'POST_NEW'
 const ERROR_MSG = 'ERROR_MSG'
 const FAVOR_LIST = 'FAVOR_LIST'
 const MY_POST = 'MY_POST'
+const UPDATE_POST = 'UPDATE_POST'
 const initState = {
     redirectTo:'',
     title:'',
@@ -13,7 +14,9 @@ const initState = {
 export function post(state=initState,action) {
     switch (action.type) {
         case POST_NEW:
-            return {msg:'ok',errmsg:'',redirectTo:'/home'}
+            return {errmsg:'',redirectTo:'/home'}
+        case UPDATE_POST:
+            return {mypost:action.payload,redirectTo:'/mypost'}
         case FAVOR_LIST:
             return {...state,favorlist:action.payload}
         case MY_POST:
@@ -29,12 +32,28 @@ function errorMsg(errmsg) {
     return { errmsg, type:ERROR_MSG }
 }
 
+function postUpdate(data) {
+    return {type:UPDATE_POST, payload:data}
+}
+export function updatepost(postid,state) {
+    return dispatch=>{
+        axios.post('/posts/updatepost',{postid,state}).then(res=>{
+            if (res.status==200&&res.data.code===0) {
+                dispatch(postUpdate(res.data.data))
+            }else{
+                dispatch(errorMsg(res.data.msg))
+            }
+        })
+    }
+}
+
 function postmy(data) {
     return {type:MY_POST, payload:data}
 }
 export function mypost(){
     return dispatch=>{
         axios.get('/posts/mypost').then(res=>{
+            console.log(res);
             if (res.status==200&&res.data.code===0) {
                 dispatch(postmy(res.data.data))
             }
@@ -82,7 +101,6 @@ export function favorpost(favor,postid) {
 function postNew(data) {
     return {type:POST_NEW, payload:data}
 }
-
 export function newposts({title,content}) {
     console.log(title,content);
     if(!title||!content) {

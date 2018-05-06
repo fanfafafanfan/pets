@@ -22,12 +22,23 @@ class PostCard extends React.Component{
         }
         return str
     }
+    timestampToTime(timestamp) {
+        var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        const Y = date.getFullYear() + '-';
+        const M = (date.getMonth()+1 < 10 ? (date.getMonth()+1) : date.getMonth()+1) + '-';
+        const D = date.getDate() + ' '
+        const h = date.getHours() + ':'
+        const m = date.getMinutes() + ':'
+        const s = date.getSeconds();
+        return Y+M+D+h+m+s;
+    }
  render() {
     const Item = List.Item
     const Brief = Item.Brief
-    const postlists = this.props.data
     const showDelete = this.props.showDelete
-    console.log(this.props);
+    const postlists = Object.values(this.props.data).sort((a,b)=>{
+        return Date.parse(b.post_time) - Date.parse(a.post_time)
+    })
      return (
          <div id="postcard" style={{marginTop:'3rem'}}>
              {
@@ -43,7 +54,7 @@ class PostCard extends React.Component{
                                         <div>
                                         {this.props.icons(this.cardavatar(p.author_id).avatar)}
                                         <span>{this.cardavatar(p.author_id).name}</span>
-                                        <span>{p.post_time}</span>
+                                        <span>{this.timestampToTime(p.post_time)}</span>
                                         </div>
                                         }</Brief>  
                                 </Item>

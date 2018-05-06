@@ -3,11 +3,11 @@ import {NavBar, Icon, List, Brief, WhiteSpace, Button} from 'antd-mobile'
 import { connect } from 'react-redux'
 import icons from '../smallComponent/myicon/icons'
 import PostCard from '../home/postcard'
-import {deletepost,mypost} from '../../redux/post.redux'
+import {deletepost,mypost,favorlist} from '../../redux/post.redux'
 
 @connect(
     state=>state,
-    {deletepost,mypost}
+    {deletepost,mypost,favorlist}
 )
 @icons
 export default class Mypost extends React.Component {
@@ -17,26 +17,42 @@ export default class Mypost extends React.Component {
             showDelete:false
         }
     }
+    componentDidMount() {
+        this.props.mypost()
+        this.props.favorlist()
+    }
     handleClick(id){
         // console.log(this.props)
         this.props.history.push(`/postdetail/${id}`)
     }
     handleDelete(id){
-        console.log(id);
         this.props.deletepost(id)
         this.props.mypost()
+    }
+    handleUpdate(postid,title,content){
+        this.props.history.push(`/postupdate/${postid}/${title}/${content}`)
     }
     cardavatar(id){
         const users = this.props.home.users
         return {avatar:users[id].avatar,name:users[id].name}
     }
+    timestampToTime(timestamp) {
+        var date = new Date(timestamp);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
+        const Y = date.getFullYear() + '-';
+        const M = (date.getMonth()+1 < 10 ? (date.getMonth()+1) : date.getMonth()+1) + '-';
+        const D = date.getDate() + ' '
+        const h = date.getHours() + ':'
+        const m = date.getMinutes() + ':'
+        const s = date.getSeconds();
+        return Y+M+D+h+m+s;
+    }
     render() {
         const Item = List.Item
         const Brief = Item.Brief
-        console.log(this.state.showDelete);
         const userid = this.props.user._id
-        const mylist = this.props.post.mypost
-        
+        const mylist = Object.values(this.props.post.mypost).sort((a,b)=>{
+            Date.parse(b.post_time) - Date.parse(a.post_time)
+        })
         return (
             <div>
                 <NavBar 
@@ -68,12 +84,20 @@ export default class Mypost extends React.Component {
                                         wrap
                                         onClick={this.state.showDelete?'':()=>this.handleClick(p._id)}
                                         extra={
-                                            this.state.showDelete?<Button 
+                                            this.state.showDelete?<div>
+                                            <Button 
                                             type="warning"
                                             onClick={()=>this.handleDelete(p._id)}
                                             >
                                             删除
-                                            </Button>:null
+                                            </Button>
+                                            <Button 
+                                            type="primary"
+                                            onClick={()=>this.handleUpdate(p._id,p.title,p.content)}
+                                            >
+                                            修改
+                                            </Button>
+                                                </div>:null
                                             }
                                         >
                                             {p.title}
@@ -81,12 +105,12 @@ export default class Mypost extends React.Component {
                                                 <div>
                                                 {this.props.icons(this.cardavatar(p.author_id).avatar)}
                                                 <span>{this.cardavatar(p.author_id).name}</span>
-                                                <span>{p.post_time}</span>
+                                                <span>{this.timestampToTime(p.post_time)}</span>
                                                 </div>
                                                 }</Brief>  
                                         </Item>
                                     </List> 
-                            )):null
+                            )):''
                         }
                     <WhiteSpace/>                
                 </div>
