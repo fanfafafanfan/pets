@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {List, InputItem, NavBar, Icon, Grid, WingBlank, WhiteSpace, Button} from 'antd-mobile'
+import {List, InputItem, NavBar, Icon, Grid, WingBlank, WhiteSpace, Button, Toast} from 'antd-mobile'
 import icons from '../smallComponent/myicon/icons'
 import './postdetail.css'
 import { favorpost, newcomment, postcomment } from '../../redux/post.redux'
@@ -45,8 +45,10 @@ export default class Postdetail extends React.Component {
     favorhandle() {
         if(this.state.favor=='favor'){
             this.setState({favor:'favorfill'})
+            Toast.success('收藏成功',1)
         }else{
             this.setState({favor:'favor'})
+            Toast.success('取消收藏成功',1)
         }
     }
     handleClick(v){
@@ -67,18 +69,20 @@ export default class Postdetail extends React.Component {
     }
     handleSubmit(postid){
         this.props.newcomment({postid:postid,text:this.state.text})
+        Toast.success('发表成功',1)
         this.setState({
             text:'',
             showEmoji:false
         })
-        this.props.postcomment(this.props.match.params.postid)        
+        this.props.postcomment(this.props.match.params.postid)
+        
     }
     render() {
-        console.log(this.state);
         const Item = List.Item
         const Brief = Item.Brief
         const postid = this.props.match.params.postid
         const commentlist = this.props.post.commentbyid
+        const users = this.props.home.users
         const postdetail = this.props.home.postlist
         const postDetail = []
         postdetail.forEach(v => {
@@ -94,6 +98,7 @@ export default class Postdetail extends React.Component {
         return (
             <div id="postdetail">
                 <NavBar 
+                className='fixd-header'
                 mode='light'
                 icon={<Icon type="left" />}
                 onLeftClick={() => {this.props.history.goBack()}}
@@ -102,7 +107,6 @@ export default class Postdetail extends React.Component {
 						aria-hidden="true"
 						onClick={()=>{
                             this.favorhandle()
-							{/* this.props.history.push('/newpost') */}
 							}}
 						>
 							<use xlinkHref={"#icon-"+this.state.favor}></use>
@@ -120,7 +124,8 @@ export default class Postdetail extends React.Component {
                             align="top" 
                             thumb={this.props.icons(userAvatar[postDetail[0].author_id].avatar)} 
                             multipleLine>
-                        {userAvatar[postDetail[0].author_id].name} 
+                        {userAvatar[postDetail[0].author_id].name}
+                        <Brief>{users[postDetail[0].author_id].city}</Brief>
                         <Brief>{this.timestampToTime(postDetail[0].post_time)}</Brief>
                         </Item>
                     </List>

@@ -35,12 +35,13 @@ class PostCard extends React.Component{
  render() {
     const Item = List.Item
     const Brief = Item.Brief
+    const users = this.props.users
     const showDelete = this.props.showDelete
     const postlists = Object.values(this.props.data).sort((a,b)=>{
         return Date.parse(b.post_time) - Date.parse(a.post_time)
     })
      return (
-         <div id="postcard" style={{marginTop:'3rem'}}>
+         <div id="postcard">
              {
                  (postlists)?postlists.map(p=>(
                          <List key={p._id}>
@@ -50,13 +51,16 @@ class PostCard extends React.Component{
                                 onClick={()=>this.handleClick(p._id)}
                                 >
                                     {p.title}
-                                    <Brief>{
+                                    <Brief>
+                                    {
                                         <div>
                                         {this.props.icons(this.cardavatar(p.author_id).avatar)}
                                         <span>{this.cardavatar(p.author_id).name}</span>
+                                        <span>{users[p.author_id].city}</span>
                                         <span>{this.timestampToTime(p.post_time)}</span>
                                         </div>
-                                        }</Brief>  
+                                    }
+                                    </Brief>  
                                 </Item>
                             </List> 
                     )):null

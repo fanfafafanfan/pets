@@ -3,3 +3,14 @@
     width: 4em; 
     height: 4em;
  }
+ #myfavor #postcard{
+     margin-top: 3rem;
+ }
+.am-list-item .am-list-line .am-list-content .empty{
+    font-size: 15px;
+    color: #888;
+    text-align: center;
+ }
+#myfavor #favorlist{
+    margin-top: 3rem;
+}

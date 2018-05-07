@@ -1,9 +1,11 @@
 import React from 'react'
-import {NavBar, Icon, List, Brief, WhiteSpace, Button} from 'antd-mobile'
+import {NavBar, Icon, List, Brief, WhiteSpace, Button, Modal} from 'antd-mobile'
 import { connect } from 'react-redux'
 import icons from '../smallComponent/myicon/icons'
 import PostCard from '../home/postcard'
+import './me.css'
 import {deletepost,mypost,favorlist} from '../../redux/post.redux'
+const alert = Modal.alert
 
 @connect(
     state=>state,
@@ -26,8 +28,15 @@ export default class Mypost extends React.Component {
         this.props.history.push(`/postdetail/${id}`)
     }
     handleDelete(id){
-        this.props.deletepost(id)
-        this.props.mypost()
+        alert('删除', '你确定删除吗?', [
+            { text: '取消' },
+            { text: '确定', onPress: () =>  new Promise((resolve) => {
+                this.props.deletepost(id)
+                this.props.mypost()
+                setTimeout(resolve, 1000);
+              }),
+            },
+          ])
     }
     handleUpdate(postid,title,content){
         this.props.history.push(`/postupdate/${postid}/${title}/${content}`)
@@ -54,21 +63,29 @@ export default class Mypost extends React.Component {
             Date.parse(b.post_time) - Date.parse(a.post_time)
         })
         return (
-            <div>
+            <div id="mypost">
                 <NavBar 
                 className='fixd-header' 
                 mode='light' 
                 icon={<Icon type="left" />}
                 onLeftClick={() => {this.props.history.goBack()}} 
                 rightContent={
-						<svg 
+						this.state.showDelete?<svg 
 						className="icon-footer" 
 						aria-hidden="true"
 						onClick={()=>{
 							this.setState({showDelete:!this.state.showDelete})
 							}}
 						>
-							<use xlinkHref={"#icon-dog"}></use>
+							<use xlinkHref={"#icon-duigou"}></use>
+						</svg>:<svg 
+						className="icon-footer" 
+						aria-hidden="true"
+						onClick={()=>{
+							this.setState({showDelete:!this.state.showDelete})
+							}}
+						>
+							<use xlinkHref={"#icon-shezhi"}></use>
 						</svg>
 				}
                 >
@@ -77,7 +94,7 @@ export default class Mypost extends React.Component {
                 {/* <PostCard data={mylist} users={users} showDelete={this.state.showDelete} deletepost={this.props.deletepost()}></PostCard> */}
                 <div id="postcard" style={{marginTop:'3rem'}}>
                     {
-                        (mylist)?mylist.map(p=>(
+                        (mylist.length>0)?mylist.map(p=>(
                                 <List key={p._id}>
                                         <Item
                                         platform="android"
@@ -97,7 +114,7 @@ export default class Mypost extends React.Component {
                                             >
                                             修改
                                             </Button>
-                                                </div>:null
+                                                </div>:"查看详情"
                                             }
                                         >
                                             {p.title}
@@ -110,7 +127,14 @@ export default class Mypost extends React.Component {
                                                 }</Brief>  
                                         </Item>
                                     </List> 
-                            )):''
+                            )):<List>
+                                <Item>
+                                    <div className='empty'>
+                                        你还没有发布帖子哦，快去首页发布一个吧
+                                    </div>
+                                </Item>
+                            </List>
+                            
                         }
                     <WhiteSpace/>                
                 </div>

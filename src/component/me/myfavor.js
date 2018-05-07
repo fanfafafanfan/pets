@@ -1,9 +1,10 @@
 import React from 'react'
-import {NavBar, Icon, List, WhiteSpace} from 'antd-mobile'
+import {NavBar, Icon, List, WhiteSpace, Item} from 'antd-mobile'
 import { connect } from 'react-redux'
 import icons from '../smallComponent/myicon/icons'
 import PostCard from '../home/postcard'
 import {favorlist} from '../../redux/post.redux'
+import './me.css'
 
 @connect(
     state=>state,
@@ -15,6 +16,7 @@ export default class Myfavor extends React.Component {
         this.props.favorlist()
     }
     render() {
+        const Item = List.Item
         const userid = this.props.user._id
         const postlists = this.props.home.postlist
         const favorlist = this.props.post.favorlist
@@ -37,7 +39,7 @@ export default class Myfavor extends React.Component {
             Date.parse(b.post_time) - Date.parse(a.post_time)
         })
         return (
-            <div>
+            <div id="myfavor">
                 <NavBar 
                 className='fixd-header' 
                 mode='light' 
@@ -46,7 +48,17 @@ export default class Myfavor extends React.Component {
                 >
                 我的收藏
                 </NavBar>
-                <PostCard data={post} users={users}></PostCard>
+                {
+                    post.length>0?<div id="favorlist">
+                                    <PostCard data={post} users={users}></PostCard>
+                                </div>:<List>
+                                            <Item>
+                                                <div className='empty'>
+                                                    你还没有收藏帖子哦，快去首页收藏一个吧
+                                                </div>
+                                            </Item>
+                                        </List>
+                }
             </div>
         )
     }

@@ -20,9 +20,11 @@
 html:not([data-scale]) .am-card-body::before{
 	z-index: 0;
 }
+#chat-page .chats{
+	margin-top: 3rem;
+}
 
 #chat-page .chat-me .am-list-extra{
-	
 	color: black;
 	flex-basis:auto;
 }
@@ -39,6 +41,13 @@ html:not([data-scale]) .am-card-body::before{
 }
 #chat-page .am-list{
 	font-size: 16px;
+}
+#chat-page .stick-footer{
+    position: fixed;
+}
+#chat-page .am-navbar{
+	position: fixed;
+	z-index: 999;
 }
 
 #msgList .am-list-item .am-list-line .am-list-arrow-horizontal{

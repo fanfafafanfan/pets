@@ -1,13 +1,13 @@
 import React from 'react'
-import { NavBar,Icon,InputItem, WhiteSpace, TextareaItem, Button,Picker,List } from 'antd-mobile'
+import { NavBar,Icon,InputItem, WhiteSpace, TextareaItem, Button,Picker,List,Modal  } from 'antd-mobile'
 import AvatarSelector from '../../component/avatar-selector/avatar-selector'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import {update,revise} from '../../redux/user.redux'
 import {fixCarousel,areaArray} from '../../util'
 import '../../container/lingyanginfo/lingyang.css'
-import { district } from 'antd-mobile-demo-data';
-
+// import { district } from 'antd-mobile-demo-data';
+const alert = Modal.alert
 // 如果不是使用 List.Item 作为 children
 const CustomChildren = props => (
     <div
@@ -30,8 +30,15 @@ class JiuzhuInfo extends React.Component{
         this.state = {
             name:'',
             city:[],            
-            desc:''
+            desc:'',
+            ok:''
         }
+    }
+    handleClick(){
+        this.setState({
+            ok:'ok'
+        })
+        this.props.revise(this.state)
     }
     componentDidMount() {
         fixCarousel()
@@ -41,17 +48,28 @@ class JiuzhuInfo extends React.Component{
             [key]:val
         })
     }
+    goback(){
+        if(this.state.name!==""||this.state.avatar||this.state.city.length>0||this.state.desc!==""){
+            alert('修改', '你确定放弃当前已有的修改吗?', [
+                { text: '取消' },
+                { text: '确定', onPress: () =>  this.props.history.goBack() },
+              ])
+        }else{
+            alert('修改', '你确定放弃继续修改吗?', [
+                { text: '取消' },
+                { text: '确定', onPress: () =>  this.props.history.goBack() },
+              ])
+        }
+    }
     render(){
-        const path = this.props.history.location.pathname
         const redirect = this.props.redirectTo
-        const update = this.props.match.params.update
         return (
-            <div>
-                {redirect&&redirect!==path&&redirect!=="/home"? <Redirect to={this.props.redirectTo}></Redirect> :null}
+            <div id="jiuzhu">
+                {redirect&&this.state.ok=="ok"&&redirect!=="/home"? <Redirect to={this.props.redirectTo}></Redirect> :null}
                 <NavBar 
                     mode='light' 
                     icon={<Icon type="left" />}
-                    onLeftClick={() => {this.props.history.goBack()}}
+                    onLeftClick={() => {this.goback()}}
                 >
                 救助站修改资料
                 </NavBar>
@@ -81,7 +99,7 @@ class JiuzhuInfo extends React.Component{
                     >
                 </TextareaItem>
                 <WhiteSpace/>
-                <Button onClick={()=>{this.props.revise(this.state)}} type='primary'>修改</Button>
+                <Button onClick={()=>{this.handleClick()}} type='primary'>修改</Button>
             </div>
         )
     }

@@ -9,6 +9,15 @@
 .icon-footer{
     width: 1.6rem;
 }
+#postdetail .am-wingblank.am-wingblank-lg{
+    margin-top: 2.5rem;
+}
+#postdetail .fixd-header.am-navbar{
+    z-index: 999;
+}
+#postdetail #comment{
+    margin-bottom: 45px;
+}
 #postcard .am-button{
     font-size: 15px;
     height: 30px;
@@ -17,7 +26,9 @@
     float: right;
     margin-left: 5px;
 }
-
+#postdetail .stick-footer{
+    position: fixed;
+}
 #comment .am-list-item .am-list-thumb:first-child .icon-footer{
     vertical-align: 1.8em;
 }
@@ -31,4 +42,10 @@
 }
 #comment .am-list-item .am-list-line .am-list-content .empty{
     font-size: 15px;
+}
+#home #postcard{
+    height: 590px;
+}
+#home #postcard .am-list{
+    position: relative;
 }

@@ -19,7 +19,7 @@ class User extends React.Component {
     }
     logout(){
         alert('注销', '确认退出登录吗?', [
-            { text: '取消', onPress: () => console.log('cancel') },
+            { text: '取消' },
             { text: '确认', onPress: () => {
                 browserCookies.erase('userid')
                 this.props.logoutSubmit()
@@ -31,7 +31,7 @@ class User extends React.Component {
         this.props.history.push(`/${type}infoupdate`)
     }
     render() {
-        const {avatar,name,city,desc,icons} = this.props
+        const {user,avatar,name,city,desc,icons,type} = this.props
         const Item = List.Item
         const Brief = Item.Brief
         return this.props.user?(
@@ -40,8 +40,21 @@ class User extends React.Component {
             <Result
                 img={icons(avatar)}
                 title={name}
-                message={desc}
+                message={
+                    <div>
+                        <p>{city}</p>
+                        <p>{desc}</p>
+                    </div>
+                }
             />
+            <WhiteSpace/>
+            <List className="my-list">
+                <Item extra={user}>登录账号</Item>
+            </List>
+            <WhiteSpace/>
+            <List className="my-list">
+                <Item extra={type=='lingyang'?'领养人':'救助站'}>我的身份</Item>
+            </List>
             <WhiteSpace/>
             <List className="my-list">
                 <Item
@@ -77,11 +90,11 @@ class User extends React.Component {
             </List>
             <WhiteSpace/>
             <List>
-                <Item onClick={this.logout}
-                    platform="android"
+                <Button onClick={this.logout}
+                    type="primary"
                     >
                     退出登录
-                </Item>
+                </Button>
             </List>
             </div>
         ): <Redirect to={this.props.redirectTo} />

@@ -65,7 +65,7 @@ Router.post('/register', function(req, res){
     const {user, pwd, type} = req.body
     User.findOne({user:user}, _filter,function (err,doc) {
         if(doc) {
-            return res.json({code:1,msg:'用户名重复'})
+            return res.json({code:1,msg:'用户名已存在'})
         }else{
             const userModel = new User({user,type,pwd:md5Pwd(pwd)})
 		    userModel.save(function(e,d){

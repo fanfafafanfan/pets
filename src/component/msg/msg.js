@@ -40,7 +40,7 @@ class Msg extends React.Component {
         })
         return (
             <div id="msglist">
-                {chatList.map(v=>{
+                {chatList.length>0?chatList.map(v=>{
                     const LastItem = this.getLast(v)
                     const targetid = LastItem.from==userid?LastItem.to:LastItem.from
                     const unreadNum = v.filter(v=>!v.read&&v.to==userid).length
@@ -66,7 +66,14 @@ class Msg extends React.Component {
                             </Item>
                         </List>
                     )
-                })}
+                }):<List>
+                        <Item>
+                            <div className='empty'>
+                                没有消息哦，快去聊一聊吧
+                            </div>
+                        </Item>
+                    </List>
+                }
             </div>
         )
     }

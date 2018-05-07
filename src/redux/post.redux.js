@@ -137,9 +137,6 @@ function postNew(data) {
     return {type:POST_NEW, payload:data}
 }
 export function newposts({title,content}) {
-    if(!title||!content) {
-        return errorMsg('必须输入标题和内容')
-    }
     return dispatch=>{
         axios.post('/posts/newpost',{title,content}).then(res=>{
             if (res.status==200&&res.data.code===0) {

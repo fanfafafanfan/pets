@@ -1,5 +1,5 @@
 import React from 'react'
-import {NavBar, Icon, List, InputItem, WhiteSpace, TextareaItem, Button, Popover} from 'antd-mobile'
+import {NavBar, Icon, List, InputItem, WhiteSpace, TextareaItem, Button,Toast} from 'antd-mobile'
 import formstate from '../../component/formstate/formstate'
 import { connect } from 'react-redux'
 import { newposts } from '../../redux/post.redux'
@@ -19,6 +19,14 @@ class NewPost extends React.Component {
         this.handlepost = this.handlepost.bind(this)
     }
     handlepost(){
+      if(!this.props.state.title){
+        Toast.info('标题不能为空',1)
+        return false
+      }
+      else if(!this.props.state.content){
+        Toast.info('内容不能为空',1)
+        return false
+      }
         this.setState({
           ok:'ok'
         })
@@ -26,9 +34,8 @@ class NewPost extends React.Component {
     }
     
   render() {
-    const Item = Popover.Item
     return (
-      <div>
+      <div id="newpost">
       {this.props.post.redirectTo&&this.state.ok=='ok'?<Redirect to={this.props.post.redirectTo}/>:null}
       <NavBar 
       className='fixd-header' 
@@ -37,10 +44,14 @@ class NewPost extends React.Component {
       onLeftClick={() => {this.props.history.goBack()}}
       >发布新帖</NavBar>
         <List style={{marginTop:'3rem'}}>
-        <InputItem placeholder="标题" onChange={v=>this.props.handleChange('title',v)}></InputItem>
+        <TextareaItem placeholder="标题"
+            rows={1} count={30}
+            onChange={v=>this.props.handleChange('title',v)}
+            >
+        </TextareaItem>
         <WhiteSpace/>
         <TextareaItem placeholder='内容...' 
-            rows={10} count={1000} 
+            rows={21} count={1000} 
             onChange={v=>this.props.handleChange('content',v)}
             >
         </TextareaItem>

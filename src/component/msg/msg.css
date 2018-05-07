@@ -1,3 +1,6 @@
 #msglist .am-list-item .am-list-line .am-list-extra{
     font-size: 14px;
 }
+#msglist .am-list-item .am-list-thumb .icon-footer{
+    width: 2rem;
+}

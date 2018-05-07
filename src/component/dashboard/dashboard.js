@@ -95,7 +95,7 @@ class Dashboard extends React.Component {
 							this.props.history.push('/newpost')
 							}}
 						>
-							<use xlinkHref={"#icon-brush"}></use>
+							<use xlinkHref={"#icon-shuru"}></use>
 						</svg>):('')
 				}
 				>{navList.find(v=>v.path==pathname).title}</NavBar>

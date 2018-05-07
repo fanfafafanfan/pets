@@ -1,11 +1,11 @@
 import React from 'react'
 import Logo from '../../component/smallComponent/logo/logo';
-import {List, InputItem, WingBlank, WhiteSpace, Button, Radio} from 'antd-mobile';
+import {List, InputItem, WingBlank, WhiteSpace, Button, Radio, Modal, Toast} from 'antd-mobile';
 import { connect } from 'react-redux'
 import { register } from '../../redux/user.redux'
 import { Redirect } from 'react-router-dom'
 import formstate from '../../component/formstate/formstate'
-
+const alert = Modal.alert
 @connect(
     state=>state.user,
     {register}
@@ -18,10 +18,21 @@ class Register extends React.Component {
         this.returnlogin = this.returnlogin.bind(this)
     }
     componentDidMount() {
-        this.props.handleChange('type','lingyang')
+        this.props.handleChange('type','')
     }
     handleRegister(){
-        this.props.register(this.props.state)
+        // alert('注册', `选定身份为“${this.props.state.type=='lingyang'?'领养人':'救助站'}”提交后不可更改，你确定提交吗？`, [
+        //     { text: '取消' },
+        //     { text: '确定', onPress: () =>  this.props.register(this.props.state) },
+        //   ])
+        if(this.props.state.type==''){
+            alert('请选择身份', '领养人或救助站且提交后不可修改', [
+                { text: '确定' },
+            ])
+        }else{
+            this.props.register(this.props.state)
+        }
+          
     }
     returnlogin(){
         this.props.history.push('/login')

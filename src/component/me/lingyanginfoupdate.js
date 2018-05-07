@@ -1,13 +1,13 @@
 import React from 'react'
-import { NavBar,Icon, InputItem, WhiteSpace, TextareaItem, Button,Picker,List } from 'antd-mobile'
+import { NavBar,Icon, InputItem, WhiteSpace, TextareaItem, Button,Picker,List,Modal } from 'antd-mobile'
 import AvatarSelector from '../../component/avatar-selector/avatar-selector'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import {update,revise} from '../../redux/user.redux'
 import {fixCarousel,areaArray} from '../../util'
 import '../../container/lingyanginfo/lingyang.css'
-import { district } from 'antd-mobile-demo-data';
-
+// import { district } from 'antd-mobile-demo-data';
+const alert = Modal.alert
 // 如果不是使用 List.Item 作为 children
 const CustomChildren = props => (
     <div
@@ -29,7 +29,6 @@ class LingyangInfo extends React.Component{
         super(props)
         this.state = {
             name:'',
-            sex:'',
             city:[],
             desc:'',
             ok:''
@@ -49,9 +48,20 @@ class LingyangInfo extends React.Component{
             [key]:val
         })
     }
+    goback(){
+        if(this.state.name!==""||this.state.avatar||this.state.city.length>0||this.state.desc!==""){
+            alert('修改', '你确定放弃当前已有的修改吗?', [
+                { text: '取消' },
+                { text: '确定', onPress: () =>  this.props.history.goBack() },
+              ])
+        }else{
+            alert('修改', '你确定放弃继续修改吗?', [
+                { text: '取消' },
+                { text: '确定', onPress: () =>  this.props.history.goBack() },
+              ])
+        }
+    }
     render(){
-        console.log(this.state);
-        const path = this.props.history.location.pathname
         const redirect = this.props.redirectTo
         return (
             <div id="lingyang">
@@ -59,7 +69,7 @@ class LingyangInfo extends React.Component{
                 <NavBar
                     mode='light' 
                     icon={<Icon type="left" />}
-                    onLeftClick={() => {this.props.history.goBack()}}
+                    onLeftClick={() => {this.goback()}}
                 >
                 领养人修改资料
                 </NavBar>
@@ -73,7 +83,7 @@ class LingyangInfo extends React.Component{
                     <Picker
                     title="选择地区"
                     extra={this.props.city}
-                    data={district}
+                    data={areaArray}
                     value={this.state.city}
                     onChange={v =>this.onChange( 'city', v )}
                     onOk={v => this.onChange( 'city', v )}

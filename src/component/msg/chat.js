@@ -56,14 +56,15 @@ class Chat extends React.Component{
         return (
             <div id='chat-page'>
                 <NavBar 
+                className='fixd-header'
                 mode='dark'
                 icon={<Icon type="left" />}
                 onLeftClick={() => {this.props.history.goBack()}}
                 >
                     {users[userid].name}
                 </NavBar>
-
-                {chatmsgs.map(v=>{
+                <div className="chats">
+                    {chatmsgs.map(v=>{
                     return v.from==userid?(
                         <List key={v._id}>
                             <Item
@@ -79,6 +80,8 @@ class Chat extends React.Component{
                         </List>
                             )
                 })}
+                </div>
+                
                 <div className="stick-footer">
                     <List>
                         <InputItem

@@ -19,7 +19,6 @@ import Postupdate from './component/me/postupdate'
 import Lingyanginfoupdate from './component/me/lingyanginfoupdate'
 import Jiuzhuinfoupdate from './component/me/jiuzhuinfoupdate'
 import Myfavor from './component/me/myfavor'
-import Reviseme from './component/me/reviseme'
 import reducers from './reducer'
 import './config'
 import './index.css'
@@ -35,7 +34,6 @@ ReactDom.render(
 			<div>
 				<AuthRoute></AuthRoute>
 				<Switch>
-					<Route path='/reviseme' component={Reviseme}/>
 					<Route path='/postupdate/:postid/:title/:content' component={Postupdate}/>
 					<Route path='/mypost' component={Mypost}/>
 					<Route path='/myfavor' component={Myfavor}/>
