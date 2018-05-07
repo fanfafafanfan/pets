@@ -49,3 +49,8 @@
 #home #postcard .am-list{
     position: relative;
 }
+#home .empty{
+    font-size: 15px;
+    color: #888;
+    text-align: center;
+}

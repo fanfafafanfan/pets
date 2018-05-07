@@ -1,8 +1,9 @@
 import React from 'react'
-import { Tabs, Badge } from 'antd-mobile'
+import { Tabs, Badge, List } from 'antd-mobile'
 import {connect} from 'react-redux'
 import {getPostList} from '../../redux/home.redux'
 import PostCard from './postcard'
+const Item = List.Item
 
 @connect(
     state=>state,
@@ -41,14 +42,34 @@ class Home extends React.Component{
                     onTabClick={(tab, index) => { this.setState({tabindex:index}) }}
                     >
                     <div style={{ alignItems: 'center', justifyContent: 'center', height: '590px', backgroundColor: '#fff' }}>
-                        
-                            <PostCard data={lingyanglist} users={this.props.home.users}></PostCard>
-                        
+                        {
+                            lingyanglist.length>0?<PostCard 
+                            data={lingyanglist} 
+                            users={this.props.home.users}>
+                            </PostCard>:<List>
+                                            <Item>
+                                                <div className='empty'>
+                                                    没有帖子哦，快去发布一个吧
+                                                </div>
+                                            </Item>
+                                        </List>
+                            
+                        }
                     </div>
                     <div style={{ alignItems: 'center', justifyContent: 'center', height: '590px', backgroundColor: '#fff' }}>
-                        
-                            <PostCard data={jiuzhulist} users={this.props.home.users}></PostCard>
-                        
+                        {
+                            jiuzhulist.length>0?<PostCard 
+                            data={jiuzhulist} 
+                            users={this.props.home.users}>
+                            </PostCard>:<List>
+                                            <Item>
+                                                <div className='empty'>
+                                                    没有帖子哦，快去发布一个吧
+                                                </div>
+                                            </Item>
+                                        </List>
+                            
+                        }
                     </div>
                 </Tabs>
             </div>

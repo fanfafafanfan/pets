@@ -14,3 +14,6 @@
 #myfavor #favorlist{
     margin-top: 3rem;
 }
+#myfavor .header{
+    position: fixed;
+}

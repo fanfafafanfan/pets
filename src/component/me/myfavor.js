@@ -41,7 +41,7 @@ export default class Myfavor extends React.Component {
         return (
             <div id="myfavor">
                 <NavBar 
-                className='fixd-header' 
+                className='header' 
                 mode='light' 
                 icon={<Icon type="left" />}
                 onLeftClick={() => {this.props.history.goBack()}}
