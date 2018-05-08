@@ -35,7 +35,11 @@ const models = {
         'author_id':{'type':String, 'require':true},
         'title':{'type':String, 'require':true},
         'content':{'type':String, 'require':true},
-        'post_time':{'type':Date,'default':Date.now}
+        'post_time':{'type':Date}
+    },
+    images:{
+        'post_id':{'type':String, 'require':true},
+        'url':{'type':String},
     },
     // 是否被收藏
     collection:{

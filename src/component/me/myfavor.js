@@ -51,7 +51,7 @@ export default class Myfavor extends React.Component {
                 {
                     post.length>0?<div id="favorlist">
                                     <PostCard data={post} users={users}></PostCard>
-                                </div>:<List>
+                                </div>:<List className='favor-empty'>
                                             <Item>
                                                 <div className='empty'>
                                                     你还没有收藏帖子哦，快去首页收藏一个吧

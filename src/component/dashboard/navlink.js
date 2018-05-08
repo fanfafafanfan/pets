@@ -26,7 +26,7 @@ class NavLinkBar extends React.Component {
 						key={v.path}
 						title={v.text}
 						icon={this.props.icons(v.icon)}
-						selectedIcon={this.props.icons(v.icon+"-copy")}
+						selectedIcon={this.props.icons(v.icon+"-fill")}
 						selected={pathname===v.path}
 						onPress={()=>{
 							this.props.history.push(v.path)

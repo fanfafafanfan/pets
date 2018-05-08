@@ -1,7 +1,11 @@
 
  #me-icon .am-result .am-result-pic .icon-footer{
-    width: 4em; 
-    height: 4em;
+    width: 6em; 
+    height: 6em;
+ }
+ #me-icon .am-result .am-result-pic{
+    width: 90px;
+    height: 78px;
  }
  #myfavor #postcard{
      margin-top: 3rem;
@@ -16,4 +20,9 @@
 }
 #myfavor .header{
     position: fixed;
+    top: 0;
+    width: 100%;
+}
+#myfavor .favor-empty{
+    margin-top: 3rem;
 }

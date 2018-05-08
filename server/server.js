@@ -29,7 +29,8 @@ io.on('connection',function (socket) {
 })
 
 app.use(cookieParser())
-app.use(bodyParser.json())
+app.use(bodyParser.json({limit: '50mb'}))
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}))
 app.use('/user',userRouter)
 app.use('/chat',chatRouter)
 app.use('/posts',postsRouter)

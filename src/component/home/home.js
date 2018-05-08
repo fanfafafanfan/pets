@@ -1,13 +1,14 @@
 import React from 'react'
 import { Tabs, Badge, List } from 'antd-mobile'
 import {connect} from 'react-redux'
-import {getPostList} from '../../redux/home.redux'
+import {getPostList,allpostimgs} from '../../redux/home.redux'
 import PostCard from './postcard'
+import './postdetail.css'
 const Item = List.Item
 
 @connect(
     state=>state,
-    {getPostList}
+    {getPostList,allpostimgs}
 )
 class Home extends React.Component{
     constructor(props) {
@@ -18,6 +19,7 @@ class Home extends React.Component{
     }
     componentDidMount() {
         this.props.getPostList()
+        this.props.allpostimgs()
     }
     render() {
         const tabs = [
@@ -35,6 +37,13 @@ class Home extends React.Component{
                 jiuzhulist.push(v)
             }
         })
+        const allimages = this.props.home.allimages
+        const allimage = []
+        if (allimages&&allimages.length>0) {
+            allimages.forEach(v => {
+                allimage.push(v.url)
+            })
+        }
         return (
             <div id="home">
                 <Tabs tabs={tabs}
@@ -45,7 +54,9 @@ class Home extends React.Component{
                         {
                             lingyanglist.length>0?<PostCard 
                             data={lingyanglist} 
-                            users={this.props.home.users}>
+                            users={users}
+                            imgs={allimage[0]}
+                            >
                             </PostCard>:<List>
                                             <Item>
                                                 <div className='empty'>
@@ -60,7 +71,9 @@ class Home extends React.Component{
                         {
                             jiuzhulist.length>0?<PostCard 
                             data={jiuzhulist} 
-                            users={this.props.home.users}>
+                            users={users}
+                            imgs={allimage[0]}
+                            >
                             </PostCard>:<List>
                                             <Item>
                                                 <div className='empty'>

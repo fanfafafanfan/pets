@@ -19,6 +19,7 @@ import Postupdate from './component/me/postupdate'
 import Lingyanginfoupdate from './component/me/lingyanginfoupdate'
 import Jiuzhuinfoupdate from './component/me/jiuzhuinfoupdate'
 import Myfavor from './component/me/myfavor'
+import Sousuo from './component/home/sousuo'
 import reducers from './reducer'
 import './config'
 import './index.css'
@@ -34,6 +35,7 @@ ReactDom.render(
 			<div>
 				<AuthRoute></AuthRoute>
 				<Switch>
+					<Route path='/sousuo' component={Sousuo}/>
 					<Route path='/postupdate/:postid/:title/:content' component={Postupdate}/>
 					<Route path='/mypost' component={Mypost}/>
 					<Route path='/myfavor' component={Myfavor}/>

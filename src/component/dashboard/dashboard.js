@@ -54,21 +54,21 @@ class Dashboard extends React.Component {
 			{
 				path:'/home',
 				text:'首页',
-                icon:'1',
+                icon:'home',
 				title:'首页',
 				component:Home
 			},
 			{
 				path:'/msg',
 				text:'消息',
-				icon:'2',
+				icon:'msg',
 				title:'消息列表',
 				component:Msg
 			},
 			{
 				path:'/me',
 				text:'我',
-				icon:'3',
+				icon:'me',
 				title:'个人中心',
 				component:Me
 			}
@@ -96,6 +96,18 @@ class Dashboard extends React.Component {
 							}}
 						>
 							<use xlinkHref={"#icon-shuru"}></use>
+						</svg>):('')
+				}
+				leftContent={
+					pathname === '/home'?(
+						<svg 
+						className="icon-footer" 
+						aria-hidden="true"
+						onClick={()=>{
+							this.props.history.push('/sousuo')
+							}}
+						>
+							<use xlinkHref={"#icon-sousuo"}></use>
 						</svg>):('')
 				}
 				>{navList.find(v=>v.path==pathname).title}</NavBar>

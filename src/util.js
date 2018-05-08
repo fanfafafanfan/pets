@@ -53,7 +53,7 @@ export const areaArray = [
             {label: '于洪区', value: '于洪区'},
             {label: '辽中区', value: '辽中区'},
             {label: '新民市', value: '新民市'},
-            {label: '康平县', value: '康平县'},
+            {label: '康平县', value: '康平县'}
         ]},
         {label: '本溪市', value: '本溪市', children: [
             {label: '溪湖区', value: '溪湖区'},
@@ -62,30 +62,30 @@ export const areaArray = [
             {label: '平山区', value: '平山区'},
             {label: '明山区', value: '明山区'},
             {label: '南芬区', value: '南芬区'},
-            {label: '本溪满族自治县', value: '本溪满族自治县'},
+            {label: '本溪满族自治县', value: '本溪满族自治县'}
         ]},
         {label: '盘锦市', value: '盘锦市', children: [
             {label: '兴隆台区', value: '兴隆台区'},
             {label: '双台子区', value: '双台子区'},
             {label: '大洼区', value: '大洼区'},
-            {label: '盘山县', value: '盘山县'},
+            {label: '盘山县', value: '盘山县'}
         ]}
     ]},    
     {label: '云南省', value: '云南省', children: [
         {label: '昆明市', value: '昆明市', children:[
             {label: '五华区', value: '五华区'},
             {label: '官渡区', value: '官渡区'},
-            {label: '呈贡区', value: '呈贡区'},
+            {label: '呈贡区', value: '呈贡区'}
         ]},
         {label: '丽江市', value: '丽江市', children:[
             {label: '古城区', value: '古城区'},
             {label: '永胜县', value: '永胜县'},
-            {label: '华坪县', value: '华坪县'},
+            {label: '华坪县', value: '华坪县'}
         ]},
         {label: '保山市', value: '昆明市', children:[
             {label: '隆阳区', value: '隆阳区'},
             {label: '腾冲市', value: '腾冲市'},
-            {label: '昌宁县', value: '昌宁县'},
+            {label: '昌宁县', value: '昌宁县'}
         ]}
     ]},
     {label: '上海', value: '上海', children: [
@@ -95,11 +95,11 @@ export const areaArray = [
             {label: '长宁区', value: '长宁区'},
             {label: '静安区', value: '静安区'},
             {label: '虹口区', value: '虹口区'},
-            {label: '金山区', value: '金山区'},
+            {label: '金山区', value: '金山区'}
         ]}
     ]},
-    {label: '江西省', value: '上海', children: [
-        {label: '南昌市', value: '上海市', children:[
+    {label: '江西省', value: '江西省', children: [
+        {label: '南昌市', value: '南昌市', children:[
             {label: '东湖区', value: '东湖区'},
             {label: '西湖区', value: '西湖区'},
             {label: '青云谱区', value: '青云谱区'},
@@ -108,7 +108,7 @@ export const areaArray = [
             {label: '新建区', value: '新建区'},
             {label: '南昌县', value: '南昌县'},
             {label: '安义县', value: '安义县'},
-            {label: '永修县', value: '永修县'},
+            {label: '永修县', value: '永修县'}
         ]},
         {label: '九江市', value: '九江市', children:[
             {label: '浔阳区', value: '浔阳区'},
@@ -123,13 +123,13 @@ export const areaArray = [
             {label: '德安县', value: '德安县'},
             {label: '都昌县', value: '都昌县'},
             {label: '湖口县', value: '湖口县'},
-            {label: '彭泽县', value: '彭泽县'},
+            {label: '彭泽县', value: '彭泽县'}
         ]},
         {label: '新余市', value: '新余市', children:[
             {label: '渝水区', value: '渝水区'},
-            {label: '分宜县', value: '分宜县'},
+            {label: '分宜县', value: '分宜县'}
         ]},
-        {label: '上饶市', value: '新余市', children:[
+        {label: '上饶市', value: '上饶市', children:[
             {label: '信州区', value: '信州区'},
             {label: '广丰区', value: '广丰区'},
             {label: '德兴市', value: '德兴市'},
@@ -139,7 +139,7 @@ export const areaArray = [
             {label: '余干县', value: '余干县'},
             {label: '万年县', value: '万年县'},
             {label: '婺源县', value: '婺源县'},
-            {label: '鄱阳县', value: '鄱阳县'},
+            {label: '鄱阳县', value: '鄱阳县'}
         ]},
     ]},
 ];

@@ -70,7 +70,7 @@ export default class Mypost extends React.Component {
                 icon={<Icon type="left" />}
                 onLeftClick={() => {this.props.history.goBack()}} 
                 rightContent={
-						this.state.showDelete?<svg 
+						this.state.showDelete&&mylist.length>0?<svg 
 						className="icon-footer" 
 						aria-hidden="true"
 						onClick={()=>{

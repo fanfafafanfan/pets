@@ -7,7 +7,13 @@ const Chat = model.getModel('chat')
 const Posts = model.getModel('posts')
 const Collection = model.getModel('collection')
 const Comment = model.getModel('comment')
-
+const Images = model.getModel('images')
+//帖子图片
+Router.get('/postimgs',function(req,res){
+    Images.find({},function (err,doc) {
+            return res.json({code:0,data:doc})
+    })
+})
 //评论列表
 Router.get('/postcomment',function(req,res){
     Comment.find({},function (err,doc) {
@@ -33,7 +39,7 @@ Router.post('/newcomment',function(req,res){
         return res.json({code:0,data:doc})
     })
 })
-//修改帖子
+//更新帖子
 Router.post('/updatepost',function (req,res) {
     const userid = req.cookies.userid
     const {postid,state} = req.body
@@ -45,6 +51,32 @@ Router.post('/updatepost',function (req,res) {
             return res.json({code:1,msg:'后端出错了'})
         }
     })
+    if(state.urls){
+        if(state.urls.length>0){
+            Images.remove({post_id:postid},function (err,doc) {
+                if (err) {
+                    return res.json({code:1,msg:'后端出错了'})
+                }
+            })
+            state.urls.forEach(v => {
+                const imgmodel = new Images({
+                    post_id:postid,
+                    url:v
+                })
+                imgmodel.save(function (err,doc) {
+                    if (err) {
+                        return res.json({code:1,msg:'后端出错了'})
+                    }
+                })
+            })
+        }else{
+            Images.remove({post_id:postid},function (err,doc) {
+                if (err) {
+                    return res.json({code:1,msg:'后端出错了'})
+                }
+            })
+        }
+    }
     Posts.find({author_id:userid},function (err,doc) {
         return res.json({code:0,data:doc})
     })
@@ -56,8 +88,19 @@ Router.post('/deletepost',function (req,res) {
         if(err){
             return res.json({code:1,msg:'后端出错了'})
         }
-        return res.json({code:0,data:doc})
     })
+    Images.remove({post_id:postid},function (err,doc) {
+        if(err){
+            return res.json({code:1,msg:'后端出错了'})
+        }
+    })
+    Comment.remove({post_id:postid},function (err,doc){
+        if(err){
+            return res.json({code:1,msg:'后端出错了'})
+        }
+    })
+    return res.json({code:0})
+    
 })
 //我的帖子列表
 Router.get('/mypost',function(req,res){
@@ -126,17 +169,45 @@ Router.post('/newpost',function(req,res){
     if(!userid){
         return json.dumps({code:1})
     }
-    const {title, content} = req.body
+    const {title, content, urls, posttime} = req.body
+    
     const postmodel = new Posts({
             author_id:userid,
             title:title,
-            content:content
+            content:content,
+            post_time:posttime
     })
     postmodel.save(function(err,doc){
         if (err) {
             return res.json({code:1,msg:'后端出错了'})
         }
-        return res.json({code:0,data:doc})
+        if (doc) {
+            Posts.findOne({author_id:userid,title:title,content:content,post_time:posttime},function (err,doc) {
+                if(err){
+                    return res.json({code:1,msg:'后端出错了'})
+                }
+                if (doc) {
+                    if(urls.length>0){
+                        urls.forEach(v => {
+                            
+                            const imgmodel = new Images({
+                                post_id:doc._id,
+                                url:v
+                            })
+                            imgmodel.save(function (err,doc) {
+                                if (err) {
+                                    return res.json({code:1,msg:'后端出错了'})
+                                }
+                            })
+                        })
+                        return res.json({code:0})
+                    }else{
+                        return res.json({code:0})
+                    }
+                }
+            })
+        }
     })
+    
 })
 module.exports = Router

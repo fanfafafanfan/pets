@@ -43,7 +43,7 @@ class LingyangInfo extends React.Component{
     validateName(v){
         this.setState({name:v.substring(0,15)});
         if(v.length>15){
-            Toast.info('最多输入15个字',1)
+            Toast.info('昵称最多输入15个字',1)
         }
     }
     handleClick(){

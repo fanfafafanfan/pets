@@ -6,6 +6,7 @@ const FAVOR_LIST = 'FAVOR_LIST'
 const MY_POST = 'MY_POST'
 const UPDATE_POST = 'UPDATE_POST'
 const POST_COMMENT = 'POST_COMMENT'
+const POST_IMAGES = 'POST_IMAGES'
 const initState = {
     redirectTo:'',
     title:'',
@@ -24,6 +25,8 @@ export function post(state=initState,action) {
             return {...state,mypost:action.payload}
         case POST_COMMENT:
             return {...state,commentbyid:action.payload}
+        case POST_IMAGES:
+            return {...state,imgsbyid:action.payload}
         case ERROR_MSG:
             return {...state,redirectTo:'',errmsg:action.errmsg}
         default:
@@ -33,6 +36,27 @@ export function post(state=initState,action) {
 
 function errorMsg(errmsg) {
     return { errmsg, type:ERROR_MSG }
+}
+
+function imgspost({allimgs,postid}) {
+    const imgsbyid =[]
+    allimgs.forEach(v => {
+        if(v.post_id == postid){
+            imgsbyid.push(v)
+        }
+    });
+    return {type:POST_IMAGES,payload:imgsbyid}
+}
+export function postimgs(postid) {
+    return dispatch=>{
+        axios.get('/posts/postimgs',{postid}).then(res=>{
+            if (res.status==200&&res.data.code===0) {
+                dispatch(imgspost({allimgs:res.data.data,postid}))
+            }else{
+                dispatch(errorMsg(res.data.msg))
+            }
+        })
+    }
 }
 
 function commentpost({allcomment,postid}) {
@@ -133,14 +157,14 @@ export function favorpost(favor,postid) {
     }
 }
 
-function postNew(data) {
-    return {type:POST_NEW, payload:data}
+function postNew() {
+    return {type:POST_NEW}
 }
-export function newposts({title,content}) {
+export function newposts({title,content,urls,posttime}) {
     return dispatch=>{
-        axios.post('/posts/newpost',{title,content}).then(res=>{
+        axios.post('/posts/newpost',{title,content,urls,posttime}).then(res=>{
             if (res.status==200&&res.data.code===0) {
-                dispatch(postNew(res.data.data))
+                dispatch(postNew())
             }else{
                 dispatch(errorMsg(res.data.msg))
             }

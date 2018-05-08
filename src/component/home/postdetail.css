@@ -26,6 +26,11 @@
     float: right;
     margin-left: 5px;
 }
+#postcard .am-list-item .am-list-line .am-list-brief .icon-footer{
+    vertical-align: middle;
+    color: black;
+    margin-right: 4px;
+}
 #postdetail .stick-footer{
     position: fixed;
 }
@@ -53,4 +58,19 @@
     font-size: 15px;
     color: #888;
     text-align: center;
+}
+#postdetail .content .img {
+    text-align: center;
+    width: 100%;
+}
+#postdetail .am-list-item img{
+    height: auto;
+    width: 100%;
+}
+#home .am-list-item img{
+    height: auto;
+    width: 70%;
+}
+#sousuo .am-search{
+    margin-top: 3rem;
 }

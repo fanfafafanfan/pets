@@ -2,5 +2,49 @@
     font-size: 14px;
 }
 #msglist .am-list-item .am-list-thumb .icon-footer{
-    width: 2rem;
+    width: 4em;
+    height: 4em
+}
+#msgList .am-list-item .am-list-line .am-list-arrow-horizontal{
+	display: none;
+}
+.stick-footer{
+	z-index:10;
+	position: absolute;
+	bottom: 0;
+	width:100%;
+}
+#chat-page  .icon-footer{
+    width: 2.5em;
+    height: 2.5em;
+}
+#chat-page .chats{
+	margin-top: 3rem;
+	margin-bottom: 3rem;
+}
+
+#chat-page .chat-me .am-list-extra{
+	color: black;
+	flex-basis:auto;
+}
+#chat-page .chat-me .am-list-content{
+	padding-right: 15px;
+	text-align: right;
+}
+#chat-page .am-grid-icon{
+	display: none;
+}
+#chat-page .am-grid-text{
+	margin-top: 0;
+	font-size: 18px;
+}
+#chat-page .am-list{
+	font-size: 16px;
+}
+#chat-page .stick-footer{
+    position: fixed;
+}
+#chat-page .am-navbar{
+	position: fixed;
+	z-index: 999;
 }

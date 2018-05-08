@@ -13,7 +13,7 @@ class AvatarSelector extends React.Component{
         this.state={}
     }
     render(){
-        const data = 'yiren,yingguoduichang,gangtiexia,heifuwang,hongxuanfeng,zhizhuxia,bianfuxia,chaoren,jinganglang,yuanzixia,qianshuixia,huoxinglieren,shenqixiansheng,sishi,shandianxia,meiguoduichang,leisheyan,lvjuren,leishen,lvdengxia'.split(',').map(v => ({
+        const data = '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20'.split(',').map(v => ({
             icon: `#icon-${v}`,
             text:v
         }));

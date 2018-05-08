@@ -40,6 +40,7 @@ class PostCard extends React.Component{
     const postlists = Object.values(this.props.data).sort((a,b)=>{
         return Date.parse(b.post_time) - Date.parse(a.post_time)
     })
+    const imgs = this.props.imgs
      return (
          <div id="postcard">
              {
@@ -49,15 +50,14 @@ class PostCard extends React.Component{
                                 platform="android"
                                 wrap
                                 onClick={()=>this.handleClick(p._id)}
+                                extra={<img src={imgs}  alt="无法显示"/>}
                                 >
                                     {p.title}
                                     <Brief>
                                     {
                                         <div>
-                                        {this.props.icons(this.cardavatar(p.author_id).avatar)}
-                                        <span>{this.cardavatar(p.author_id).name}</span>
-                                        <span>{users[p.author_id].city}</span>
-                                        <span>{this.timestampToTime(p.post_time)}</span>
+                                            {this.props.icons(this.cardavatar(p.author_id).avatar)}
+                                            <span>{this.cardavatar(p.author_id).name}</span>
                                         </div>
                                     }
                                     </Brief>  

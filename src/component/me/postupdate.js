@@ -1,23 +1,31 @@
 import React from 'react'
-import {NavBar, Icon, List, InputItem, WhiteSpace, TextareaItem, Button, Popover,Modal} from 'antd-mobile'
+import {NavBar, Icon, List, InputItem, WhiteSpace, TextareaItem, Button, Popover,Modal,Toast,ImagePicker, WingBlank} from 'antd-mobile'
 import formstate from '../../component/formstate/formstate'
 import { connect } from 'react-redux'
-import { updatepost } from '../../redux/post.redux'
+import { updatepost,postimgs } from '../../redux/post.redux'
 import { Redirect } from 'react-router-dom'
 import {getPostList} from '../../redux/home.redux'
 const alert = Modal.alert
 @connect(
     state=>state,
-    {updatepost}
+    {updatepost,postimgs}
 )
 @formstate
 class NewPost extends React.Component {
-  constructor(props) {
+    constructor(props) {
         super(props)
         this.state = {
-            ok:''
+          files: [],          
+          ok:''
         }
         this.handleupdate = this.handleupdate.bind(this)
+    }
+    componentDidMount(){
+      this.props.postimgs(this.props.match.params.postid)
+      const imgslist = this.props.post.imgsbyid
+      this.setState({
+        files:imgslist
+      })
     }
     handleupdate(postid){
         alert('修改', '你确定修改吗?', [
@@ -41,9 +49,28 @@ class NewPost extends React.Component {
         ])
       }
     }
+    onChange = (files, type, index) => {
+      if(files.length<10){
+        const urls = []
+        files.forEach(v => {
+          urls.push(v.url)
+        });
+        const posttime = new Date()
+          this.props.handleChange('urls',urls)
+          this.props.handleChange('posttime',posttime)
+          this.setState({
+            files
+          });
+      }else{
+        Toast.info('图片不能超过九张',1)
+        return false
+      }
+    }
   render() {
+    console.log(this.props.state);
     const Item = Popover.Item
     const {postid,title,content} = this.props.match.params
+    const { files } = this.state;
     return (
       <div>
       {this.props.post.redirectTo&&this.state.ok=='ok'?<Redirect to={this.props.post.redirectTo}/>:null}
@@ -62,6 +89,18 @@ class NewPost extends React.Component {
             onChange={v=>this.props.handleChange('content',v)}
             >
         </TextareaItem>
+        <WhiteSpace/>
+        <WingBlank>
+          <span style={{fontSize: '17px',color: 'rgb(169, 169, 169)'}}>添加图片（最多九张）</span>
+          <ImagePicker
+            files={files}
+            onChange={this.onChange}
+            onImageClick={(index, fs) => console.log(index, fs)}
+            selectable={files.length < 9}
+            multiple='true'
+            accept="image/gif,image/jpeg,image/jpg,image/png"
+          />
+        </WingBlank>
         <WhiteSpace/>
         <Button type='primary' onClick={()=>this.handleupdate(postid)}>完成</Button>
         </List>

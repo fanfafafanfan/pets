@@ -3,12 +3,12 @@ import {connect} from 'react-redux'
 import {List, InputItem, NavBar, Icon, Grid, WingBlank, WhiteSpace, Button, Toast} from 'antd-mobile'
 import icons from '../smallComponent/myicon/icons'
 import './postdetail.css'
-import { favorpost, newcomment, postcomment } from '../../redux/post.redux'
+import { favorpost, newcomment, postcomment, postimgs } from '../../redux/post.redux'
 import {getPostList} from '../../redux/home.redux'
 import { fixCarousel } from '../../util';
 @connect(
     state=>state,
-    {favorpost,getPostList,newcomment,postcomment}
+    {favorpost,getPostList,newcomment,postcomment,postimgs}
 )
 @icons
 export default class Postdetail extends React.Component {
@@ -19,6 +19,7 @@ export default class Postdetail extends React.Component {
         }
     }
     componentDidMount() {
+        this.props.postimgs(this.props.match.params.postid)
         this.props.getPostList()
         this.props.postcomment(this.props.match.params.postid)                
     }
@@ -84,6 +85,7 @@ export default class Postdetail extends React.Component {
         const commentlist = this.props.post.commentbyid
         const users = this.props.home.users
         const postdetail = this.props.home.postlist
+        const imgslist = this.props.post.imgsbyid
         const postDetail = []
         postdetail.forEach(v => {
             if (v._id == postid) {
@@ -130,7 +132,14 @@ export default class Postdetail extends React.Component {
                         </Item>
                     </List>
                     <List>
-                        <Item wrap>{postDetail[0].content}</Item>
+                        <Item wrap>
+                            <div className="content">
+                                {postDetail[0].content.split('\n').map(v=><div key={v}>{v}</div>)}
+                                {
+                                    imgslist?imgslist.map(v=><div className="img"><img src={v.url} alt="无法显示"/></div>):''
+                                }
+                            </div>
+                        </Item>
                     </List>
                     <div id="comment">
                         <List renderHeader={() => '评论区'}>
