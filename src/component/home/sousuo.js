@@ -79,7 +79,7 @@ export default class Sousuo extends React.Component {
                     mode='light' 
                     icon={<Icon type="left" />}
                     onLeftClick={() => {this.props.history.goBack()}}
-                    ></NavBar>
+                    >搜索标签</NavBar>
                 <SearchBar
                 placeholder="输入关键字(仅匹配标签)" 
                 value = {this.state.tags}

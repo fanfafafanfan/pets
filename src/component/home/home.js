@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tabs, Badge, List } from 'antd-mobile'
+import { Tabs, Badge, List, Carousel, WingBlank } from 'antd-mobile'
 import {connect} from 'react-redux'
 import {getPostList,allpostimgs} from '../../redux/home.redux'
 import PostCard from './postcard'
@@ -14,12 +14,19 @@ class Home extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
+            data: ['1', '2', '3'],
+            imgHeight: 176,
             tabindex: 0
         }
     }
     componentDidMount() {
         this.props.getPostList()
         this.props.allpostimgs()
+        setTimeout(() => {
+            this.setState({
+              data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
+            });
+          }, 100);
     }
     render() {
         const tabs = [
@@ -40,6 +47,31 @@ class Home extends React.Component{
         const allimages = this.props.home.allimages
         return (
             <div id="home">
+                <Carousel
+                autoplay={false}
+                infinite
+                beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
+                afterChange={index => console.log('slide to', index)}
+                >
+                {this.state.data.map(val => (
+                    <a
+                    key={val}
+                    href="http://www.alipay.com"
+                    style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
+                    >
+                    <img
+                        src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
+                        alt=""
+                        style={{ width: '100%', verticalAlign: 'top' }}
+                        onLoad={() => {
+                        // fire window resize event to change height
+                        window.dispatchEvent(new Event('resize'));
+                        this.setState({ imgHeight: 'auto' });
+                        }}
+                    />
+                    </a>
+                ))}
+                </Carousel>
                 <Tabs tabs={tabs}
                     initialPage={this.state.tabindex}
                     onTabClick={(tab, index) => { this.setState({tabindex:index}) }}

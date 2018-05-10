@@ -49,15 +49,16 @@ class User extends React.Component {
             />
             <WhiteSpace/>
             <List className="my-list">
-                <Item extra={user}>登录账号</Item>
+                <Item thumb={icons('tubiaozhizuomoban-1')} extra={user}>登录账号</Item>
             </List>
             <WhiteSpace/>
             <List className="my-list">
-                <Item extra={type=='lingyang'?'领养人':'救助站'}>我的身份</Item>
+                <Item thumb={icons('tubiaozhizuomoban-')} extra={type=='lingyang'?'领养人':'救助站'}>我的身份</Item>
             </List>
             <WhiteSpace/>
             <List className="my-list">
                 <Item
+                    thumb={icons('tubiaozhizuomoban-3')}
                     multipleLine
                     arrow="horizontal"
                     onClick={() => {this.handleClick()}}
@@ -69,6 +70,7 @@ class User extends React.Component {
             <WhiteSpace/>
             <List className="my-list">
                 <Item
+                thumb={icons('tubiaozhizuomoban-4')}
                 arrow="horizontal"
                 platform="android"
                 multipleLine
@@ -80,6 +82,7 @@ class User extends React.Component {
             <WhiteSpace/>
             <List className="my-list">
                 <Item
+                thumb={icons('tubiaozhizuomoban-1')}
                 arrow="horizontal"
                 platform="android"
                 multipleLine

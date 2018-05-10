@@ -35,8 +35,20 @@ html:not([data-scale]) .am-card-body::before{
 	background-size:cover;
 }
 .login .am-wingblank.am-wingblank-lg{
-	margin-left: 40px;
-    margin-right: 40px;
+	margin-left: 65px;
+    margin-right: 65px;
+}
+.login .am-list-item.am-input-item{
+	background-color: rgba(255,255,255,0.1);
+}
+.login .am-list-body{
+	background-color: rgba(255,255,255,0.8);
+}
+.login .am-button{
+	opacity: 0.8;
+}
+.am-list-item.am-radio-item.am-list-item-middle{
+	background-color: rgba(255,255,255,0.1);	
 }
 #chat-page .am-list-body::before{
 	background-color: #ffffff;

@@ -17,6 +17,7 @@ export default class Postdetail extends React.Component {
         this.state = {
             favor: 'favor'
         }
+        this.handleClick = this.handleClick.bind(this)
     }
     componentDidMount() {
         this.props.postimgs(this.props.match.params.postid)
@@ -122,7 +123,7 @@ export default class Postdetail extends React.Component {
                 </WingBlank>
                     <List>
                         <Item extra={
-                            this.props.user._id==postDetail[0].author_id?'':<Button type='primary' onClick={()=>this.handleClick(postDetail[0])}>发消息</Button>} 
+                            this.props.user._id==postDetail[0].author_id?'':<Button type='primary' onClick={this.handleClick(postDetail[0])}>发消息</Button>} 
                             align="top" 
                             thumb={this.props.icons(userAvatar[postDetail[0].author_id].avatar)} 
                             multipleLine>
