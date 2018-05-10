@@ -38,12 +38,6 @@ class Home extends React.Component{
             }
         })
         const allimages = this.props.home.allimages
-        const allimage = []
-        if (allimages&&allimages.length>0) {
-            allimages.forEach(v => {
-                allimage.push(v.url)
-            })
-        }
         return (
             <div id="home">
                 <Tabs tabs={tabs}
@@ -55,7 +49,7 @@ class Home extends React.Component{
                             lingyanglist.length>0?<PostCard 
                             data={lingyanglist} 
                             users={users}
-                            imgs={allimage[0]}
+                            imgs={allimages}
                             >
                             </PostCard>:<List>
                                             <Item>
@@ -72,7 +66,7 @@ class Home extends React.Component{
                             jiuzhulist.length>0?<PostCard 
                             data={jiuzhulist} 
                             users={users}
-                            imgs={allimage[0]}
+                            imgs={allimages}
                             >
                             </PostCard>:<List>
                                             <Item>

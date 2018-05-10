@@ -95,9 +95,9 @@ export function newcomment(data) {
 function postUpdate(data) {
     return {type:UPDATE_POST, payload:data}
 }
-export function updatepost(postid,state) {
+export function updatepost(postid,state,tags) {
     return dispatch=>{
-        axios.post('/posts/updatepost',{postid,state}).then(res=>{
+        axios.post('/posts/updatepost',{postid,state,tags}).then(res=>{
             if (res.status==200&&res.data.code===0) {
                 dispatch(postUpdate(res.data.data))
             }else{
@@ -160,9 +160,9 @@ export function favorpost(favor,postid) {
 function postNew() {
     return {type:POST_NEW}
 }
-export function newposts({title,content,urls,posttime}) {
+export function newposts(state,tags) {
     return dispatch=>{
-        axios.post('/posts/newpost',{title,content,urls,posttime}).then(res=>{
+        axios.post('/posts/newpost',{state,tags}).then(res=>{
             if (res.status==200&&res.data.code===0) {
                 dispatch(postNew())
             }else{

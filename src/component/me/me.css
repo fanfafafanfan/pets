@@ -15,6 +15,10 @@
     color: #888;
     text-align: center;
  }
+#myfavor .am-list-item img{
+    height: 90px;
+    width: 70%;
+}
 #myfavor #favorlist{
     margin-top: 3rem;
 }

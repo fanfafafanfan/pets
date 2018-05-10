@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {List,Brief, WhiteSpace,WingBlank} from 'antd-mobile'
+import {List,Brief, WhiteSpace,WingBlank,Tag} from 'antd-mobile'
 import {withRouter} from 'react-router-dom'
 import icons from '../smallComponent/myicon/icons'
 @withRouter
@@ -32,6 +32,18 @@ class PostCard extends React.Component{
         const s = date.getSeconds();
         return Y+M+D+h+m+s;
     }
+    findfirstimg(postid){
+        const imgs = this.props.imgs
+        const img =[]
+        if(imgs){
+            imgs.forEach(v => {
+                if(v.post_id==postid){
+                    img.push(v.url)
+                }
+            });
+        }
+        return img
+    }
  render() {
     const Item = List.Item
     const Brief = Item.Brief
@@ -40,7 +52,6 @@ class PostCard extends React.Component{
     const postlists = Object.values(this.props.data).sort((a,b)=>{
         return Date.parse(b.post_time) - Date.parse(a.post_time)
     })
-    const imgs = this.props.imgs
      return (
          <div id="postcard">
              {
@@ -50,7 +61,10 @@ class PostCard extends React.Component{
                                 platform="android"
                                 wrap
                                 onClick={()=>this.handleClick(p._id)}
-                                extra={<img src={imgs}  alt="无法显示"/>}
+                                extra={
+                                    this.findfirstimg(p._id)&&this.findfirstimg(p._id).length>0?
+                                    <img src={this.findfirstimg(p._id)[0]}  alt="无法显示"/>:''
+                                    }
                                 >
                                     {p.title}
                                     <Brief>
@@ -58,6 +72,11 @@ class PostCard extends React.Component{
                                         <div>
                                             {this.props.icons(this.cardavatar(p.author_id).avatar)}
                                             <span>{this.cardavatar(p.author_id).name}</span>
+                                            <div style={{marginLeft:'25px'}}>
+                                                {p.tags.split(',').map(v=>(
+                                                    <Tag key={v} style={{marginRight:'5px'}} selected>{v}</Tag>
+                                                ))}
+                                            </div>
                                         </div>
                                     }
                                     </Brief>  

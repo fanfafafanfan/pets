@@ -13,6 +13,7 @@
 	position: fixed;
 	top: 0;
 	width: 100%;
+	z-index: 999;
 }
 .page-content{
 	padding:4.5rem 0.5rem;
@@ -24,4 +25,26 @@ html:not([data-scale]) .am-card-body::before{
 #postcard .am-list-item .am-list-line .am-list-brief span{
 	display: inline-block;
 	margin-right: 10px;
+}
+
+.login{
+	position: absolute;
+	height:100%;
+	width: 100%;
+	background:url(../src/imgs/bg1.jpg) 0 0 no-repeat;
+	background-size:cover;
+}
+.login .am-wingblank.am-wingblank-lg{
+	margin-left: 40px;
+    margin-right: 40px;
+}
+#chat-page .am-list-body::before{
+	background-color: #ffffff;
+}
+#chat-page .am-list-body::after{
+	background-color: #ffffff;
+}
+#postdetail .am-grid-text{
+	margin-top: 0;
+    font-size: 18px;
 }

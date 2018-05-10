@@ -35,6 +35,7 @@ const models = {
         'author_id':{'type':String, 'require':true},
         'title':{'type':String, 'require':true},
         'content':{'type':String, 'require':true},
+        'tags':{'type':String, 'require':true},
         'post_time':{'type':Date}
     },
     images:{

@@ -1,5 +1,5 @@
 import React from 'react'
-import {NavBar, Icon, List, Brief, WhiteSpace, Button, Modal} from 'antd-mobile'
+import {NavBar, Icon, List, Brief, WhiteSpace, Button, Modal,Tag} from 'antd-mobile'
 import { connect } from 'react-redux'
 import icons from '../smallComponent/myicon/icons'
 import PostCard from '../home/postcard'
@@ -38,8 +38,8 @@ export default class Mypost extends React.Component {
             },
           ])
     }
-    handleUpdate(postid,title,content){
-        this.props.history.push(`/postupdate/${postid}/${title}/${content}`)
+    handleUpdate(postid,title,content,tags){
+        this.props.history.push(`/postupdate/${postid}/${title}/${content}/${tags}`)
     }
     cardavatar(id){
         const users = this.props.home.users
@@ -60,7 +60,7 @@ export default class Mypost extends React.Component {
         const Brief = Item.Brief
         const userid = this.props.user._id
         const mylist = Object.values(this.props.post.mypost).sort((a,b)=>{
-            Date.parse(b.post_time) - Date.parse(a.post_time)
+            return Date.parse(b.post_time) - Date.parse(a.post_time)
         })
         return (
             <div id="mypost">
@@ -110,7 +110,7 @@ export default class Mypost extends React.Component {
                                             </Button>
                                             <Button 
                                             type="primary"
-                                            onClick={()=>this.handleUpdate(p._id,p.title,p.content)}
+                                            onClick={()=>this.handleUpdate(p._id,p.title,p.content,p.tags)}
                                             >
                                             修改
                                             </Button>
@@ -120,11 +120,16 @@ export default class Mypost extends React.Component {
                                             {p.title}
                                             <Brief>{
                                                 <div>
-                                                {this.props.icons(this.cardavatar(p.author_id).avatar)}
-                                                <span>{this.cardavatar(p.author_id).name}</span>
-                                                <span>{this.timestampToTime(p.post_time)}</span>
+                                                    {this.props.icons(this.cardavatar(p.author_id).avatar)}
+                                                    <span>{this.cardavatar(p.author_id).name}</span>
+                                                    <div style={{marginLeft:'25px'}}>
+                                                        {p.tags.split(',').map(v=>(
+                                                            <Tag key={v} style={{marginRight:'5px'}} selected>{v}</Tag>
+                                                        ))}
+                                                    </div>
                                                 </div>
-                                                }</Brief>  
+                                                }
+                                            </Brief>  
                                         </Item>
                                     </List> 
                             )):<List>

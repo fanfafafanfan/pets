@@ -42,7 +42,10 @@ Router.post('/newcomment',function(req,res){
 //更新帖子
 Router.post('/updatepost',function (req,res) {
     const userid = req.cookies.userid
-    const {postid,state} = req.body
+    const {postid,state,tags} = req.body
+    const tag = tags.toString()
+    state.tags = tag
+    state.post_time = new Date()
     Posts.findByIdAndUpdate({_id:postid},state,function(err,doc){
         if(doc){
             const data = Object.assign(doc,state)
@@ -169,12 +172,14 @@ Router.post('/newpost',function(req,res){
     if(!userid){
         return json.dumps({code:1})
     }
-    const {title, content, urls, posttime} = req.body
-    
+    const {title, content} = req.body.state
+    const tags = req.body.tags
+    const posttime = new Date()
     const postmodel = new Posts({
             author_id:userid,
             title:title,
             content:content,
+            tags:tags,
             post_time:posttime
     })
     postmodel.save(function(err,doc){
@@ -187,8 +192,8 @@ Router.post('/newpost',function(req,res){
                     return res.json({code:1,msg:'后端出错了'})
                 }
                 if (doc) {
-                    if(urls.length>0){
-                        urls.forEach(v => {
+                    if(req.body.state.urls&&req.body.state.urls.length>0){
+                        req.body.state.urls.forEach(v => {
                             
                             const imgmodel = new Images({
                                 post_id:doc._id,

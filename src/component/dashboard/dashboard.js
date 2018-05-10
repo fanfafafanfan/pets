@@ -23,14 +23,12 @@ class Dashboard extends React.Component {
     }
     
     onSelect(opt) {
-		console.log(this.state.visible);
         this.setState({
             visible: false
         });
     }
     
     handleVisibleChange(visible) {
-		console.log(this.state.visible);
         this.setState({
             visible
         });

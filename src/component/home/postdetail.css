@@ -18,6 +18,10 @@
 #postdetail #comment{
     margin-bottom: 45px;
 }
+#postdetail .am-list-item .am-list-thumb:first-child .icon-footer{
+    width: 2.5rem;
+    height: 2.5rem;
+}
 #postcard .am-button{
     font-size: 15px;
     height: 30px;
@@ -31,11 +35,18 @@
     color: black;
     margin-right: 4px;
 }
+#postcard .am-tag{
+    font-size: 12px;
+    height: 22px;
+    line-height: 22px;
+}
 #postdetail .stick-footer{
     position: fixed;
 }
 #comment .am-list-item .am-list-thumb:first-child .icon-footer{
     vertical-align: 1.8em;
+    width: 2.5rem;
+    height: 2.5rem;
 }
 #comment .am-list-item .am-list-line .am-list-content span{
     font-size: 16px;
@@ -46,7 +57,7 @@
     font-size: 15px;
 }
 #comment .am-list-item .am-list-line .am-list-content .empty{
-    font-size: 15px;
+    font-size: 10px;
 }
 #home #postcard{
     height: 590px;
@@ -68,9 +79,18 @@
     width: 100%;
 }
 #home .am-list-item img{
-    height: auto;
+    height: 90px;
     width: 70%;
 }
 #sousuo .am-search{
     margin-top: 3rem;
+}
+#sousuo .am-button{
+    font-size: 16px;
+    height: 37px;
+    line-height: 37px;
+}
+#sousuo .am-list-item img{
+    height: 90px;
+    width: 70%;
 }

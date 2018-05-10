@@ -1,5 +1,5 @@
 import React from 'react'
-import {NavBar, Icon, List, InputItem, WhiteSpace, TextareaItem, Button, Popover,Modal,Toast,ImagePicker, WingBlank} from 'antd-mobile'
+import {Tag,NavBar, Icon, List, InputItem, WhiteSpace, TextareaItem, Button, Popover,Modal,Toast,ImagePicker, WingBlank} from 'antd-mobile'
 import formstate from '../../component/formstate/formstate'
 import { connect } from 'react-redux'
 import { updatepost,postimgs } from '../../redux/post.redux'
@@ -15,7 +15,9 @@ class NewPost extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-          files: [],          
+          files: [],
+          tags:[],
+          tagval:['猫','狗','其他动物','我要领养','我要送养','我是救助站'],
           ok:''
         }
         this.handleupdate = this.handleupdate.bind(this)
@@ -32,7 +34,7 @@ class NewPost extends React.Component {
           { text: '取消' },
           { text: '确定', onPress: () =>  {
             this.setState({ok:'ok'})
-            this.props.updatepost(postid,this.props.state)
+            this.props.updatepost(postid,this.props.state,this.state.tags)
           }},
         ])
     }
@@ -66,8 +68,28 @@ class NewPost extends React.Component {
         return false
       }
     }
+    remove(arr, item) {  
+      var result=[];  
+         for(var i=0; i<arr.length; i++){  
+          if(arr[i]!=item){  
+              result.push(arr[i]);  
+          }  
+         }  
+      return result;  
+    }
+    tagsChange(selected,val){
+      if(selected){
+          this.state.tags.push(val);
+          this.setState({
+              tags:this.state.tags
+          })
+      }else{
+          this.setState({
+              tags:this.remove(this.state.tags,val)
+          })
+      }
+    }
   render() {
-    console.log(this.props.state);
     const Item = Popover.Item
     const {postid,title,content} = this.props.match.params
     const { files } = this.state;
@@ -79,6 +101,7 @@ class NewPost extends React.Component {
       mode='light' 
       icon={<Icon type="left" />}
       onLeftClick={() => {this.goback()}}
+      rightContent={<div onClick={()=>this.handleupdate(postid)}>完成</div>}
       >修改帖子</NavBar>
         <List style={{marginTop:'3rem'}}>
         <InputItem placeholder="标题" defaultValue={title} onChange={v=>this.props.handleChange('title',v)}></InputItem>
@@ -90,19 +113,29 @@ class NewPost extends React.Component {
             >
         </TextareaItem>
         <WhiteSpace/>
+        <span style={{marginLeft:'15px', fontSize: '17px',color: 'rgb(169, 169, 169)'}}>至少选择一个标签：</span>
+        <WhiteSpace/>
+        <WingBlank>
+          <Tag onChange={(selected) => { this.tagsChange(selected, '猫') }}>猫</Tag>
+          <Tag onChange={(selected) => { this.tagsChange(selected, '狗') }}>狗</Tag>
+          <Tag onChange={(selected) => { this.tagsChange(selected, '其他动物') }}>其他动物</Tag>
+          <Tag onChange={(selected) => { this.tagsChange(selected, '我要领养') }}>我要领养</Tag>
+          <Tag onChange={(selected) => { this.tagsChange(selected, '我要送养') }}>我要送养</Tag>
+          <Tag onChange={(selected) => { this.tagsChange(selected, '我是救助站') }}>我是救助站</Tag>
+        </WingBlank>
+        <WhiteSpace/>
         <WingBlank>
           <span style={{fontSize: '17px',color: 'rgb(169, 169, 169)'}}>添加图片（最多九张）</span>
           <ImagePicker
             files={files}
             onChange={this.onChange}
             onImageClick={(index, fs) => console.log(index, fs)}
-            selectable={files.length < 9}
+            selectable={files?files.length < 9:'9'}
             multiple='true'
             accept="image/gif,image/jpeg,image/jpg,image/png"
           />
         </WingBlank>
         <WhiteSpace/>
-        <Button type='primary' onClick={()=>this.handleupdate(postid)}>完成</Button>
         </List>
       </div>
     )

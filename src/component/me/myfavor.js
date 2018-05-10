@@ -17,6 +17,7 @@ export default class Myfavor extends React.Component {
     }
     render() {
         const Item = List.Item
+        const allimages = this.props.home.allimages        
         const userid = this.props.user._id
         const postlists = this.props.home.postlist
         const favorlist = this.props.post.favorlist
@@ -36,7 +37,7 @@ export default class Myfavor extends React.Component {
             })
         })
         const post = Object.values(posts).sort((a,b)=>{
-            Date.parse(b.post_time) - Date.parse(a.post_time)
+            return Date.parse(b.post_time) - Date.parse(a.post_time)
         })
         return (
             <div id="myfavor">
@@ -50,7 +51,7 @@ export default class Myfavor extends React.Component {
                 </NavBar>
                 {
                     post.length>0?<div id="favorlist">
-                                    <PostCard data={post} users={users}></PostCard>
+                                    <PostCard data={post} users={users} imgs={allimages}></PostCard>
                                 </div>:<List className='favor-empty'>
                                             <Item>
                                                 <div className='empty'>

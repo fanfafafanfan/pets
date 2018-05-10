@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {List, InputItem, NavBar, Icon, Grid, WingBlank, WhiteSpace, Button, Toast} from 'antd-mobile'
+import {List, InputItem, NavBar, Icon, Grid, WingBlank, WhiteSpace, Button, Toast,Tag} from 'antd-mobile'
 import icons from '../smallComponent/myicon/icons'
 import './postdetail.css'
 import { favorpost, newcomment, postcomment, postimgs } from '../../redux/post.redux'
@@ -96,7 +96,7 @@ export default class Postdetail extends React.Component {
         const emoji = '😀 😃 😄 😁 😆 😅 😂 😊 😇 🙂 🙃 😉 😌 😍 😘 😗 😙 😚 😋 😜 😝 😛 🤑 🤗 🤓 😎 😏 😒 😞 😔 😟 😕 🙁 😣 😖 😫 😩 😤 😠 😡 😶 😐 😑 😯 😦 😧 😮 😲 😵 😳 😱 😨 😰 😢 😥 😭 😓 😪 😴 🙄 🤔 😬 🤐 😷 🤒 🤕 😈 👿 👹 👺 💩 👻 💀 ☠️ 👽 👾 🤖 🎃 😺 😸 😹 😻 😼 😽 🙀 😿 😾 👐 🙌 👏 🙏 👍 👎 👊 ✊ 🤘 👌 👈 👉 👆 👇 ✋  🖐 🖖 👋  💪 🖕 ✍️  💅 🖖 💄 💋 👄 👅 👂 👃 👁 👀 '
 										.split(' ')
 										.filter(v=>v)
-										.map(v=>({text:v}))
+                                        .map(v=>({text:v}))
         return (
             <div id="postdetail">
                 <NavBar 
@@ -129,6 +129,11 @@ export default class Postdetail extends React.Component {
                         {userAvatar[postDetail[0].author_id].name}
                         <Brief>{users[postDetail[0].author_id].city}</Brief>
                         <Brief>{this.timestampToTime(postDetail[0].post_time)}</Brief>
+                        <div>
+                            {postDetail[0].tags?postDetail[0].tags.split(',').map(v=>(
+                                <Tag style={{marginRight:'5px',marginTop:'5px'}} selected>{v}</Tag>
+                            )):''}
+                        </div>
                         </Item>
                     </List>
                     <List>

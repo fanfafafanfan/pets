@@ -5,7 +5,6 @@ import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import {login} from '../../redux/user.redux'
 import formstate from '../../component/formstate/formstate'
-
 @connect(
     state=>state.user,
     {login}
@@ -26,7 +25,7 @@ class Login extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div className="login">
                 {this.props.redirectTo&&this.props.redirectTo!=='/login'? <Redirect to={this.props.redirectTo} />:null}
                 <Logo></Logo>
                 <WingBlank>
