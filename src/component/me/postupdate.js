@@ -30,6 +30,10 @@ class NewPost extends React.Component {
       })
     }
     handleupdate(postid){
+        if(this.state.tags==''){
+          Toast.info('请至少选择一个标签',1)
+          return false
+        }
         alert('修改', '你确定修改吗?', [
           { text: '取消' },
           { text: '确定', onPress: () =>  {
@@ -90,6 +94,7 @@ class NewPost extends React.Component {
       }
     }
   render() {
+    console.log(this.state);
     const Item = Popover.Item
     const {postid,title,content} = this.props.match.params
     const { files } = this.state;
