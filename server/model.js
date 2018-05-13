@@ -36,25 +36,25 @@ const models = {
         'title':{'type':String, 'require':true},
         'content':{'type':String, 'require':true},
         'tags':{'type':String, 'require':true},
-        'post_time':{'type':Date}
+        'post_time':{'type':Date, 'require':true}
     },
     images:{
         'post_id':{'type':String, 'require':true},
-        'url':{'type':String},
+        'url':{'type':String, 'require':true},
     },
     // 是否被收藏
     collection:{
         'post_id':{'type':String, 'require':true},
-        'user_id':{'type':String},
+        'user_id':{'type':String, 'require':true},
         'collect':{'type':Boolean,'default':false}
     },
      // 评论
      comment:{
         'post_id':{'type':String, 'require':true},
         //评论人        
-        'comment_id':{'type':String},
-        'content':{'type':String},
-        'comment_time':{'type':Date,'default':Date.now}
+        'comment_id':{'type':String, 'require':true},
+        'content':{'type':String, 'require':true},
+        'comment_time':{'type':Date,'default':Date.now, 'require':true}
     }
 }
 
