@@ -1,10 +1,9 @@
 import React from 'react'
-import {Tag,NavBar, Icon, List, InputItem, WhiteSpace, TextareaItem, Button, Popover,Modal,Toast,ImagePicker, WingBlank} from 'antd-mobile'
+import {Tag,NavBar, Icon, List, InputItem, WhiteSpace, TextareaItem, Modal,Toast,ImagePicker, WingBlank} from 'antd-mobile'
 import formstate from '../../component/formstate/formstate'
 import { connect } from 'react-redux'
 import { updatepost,postimgs } from '../../redux/post.redux'
 import { Redirect } from 'react-router-dom'
-import {getPostList} from '../../redux/home.redux'
 const alert = Modal.alert
 @connect(
     state=>state,
@@ -94,7 +93,6 @@ class NewPost extends React.Component {
       }
     }
   render() {
-    const Item = Popover.Item
     const {postid,title,content} = this.props.match.params
     const { files } = this.state;
     return (

@@ -1,5 +1,5 @@
 import React from 'react'
-import {NavBar, Icon, TabBar,Popover} from 'antd-mobile'
+import {NavBar} from 'antd-mobile'
 import {connect} from 'react-redux'
 import {Switch, Route} from 'react-router-dom'
 import Home from '../../component/home/home'
@@ -7,8 +7,9 @@ import Me from '../../component/me/me'
 import Msg from '../../component/msg/msg'
 import NavLinkBar from './navlink'
 import {getPostList} from '../../redux/home.redux'
-import { getMsgList,sendMsg,recvMsg } from '../../redux/chat.redux'
+import { getMsgList, recvMsg } from '../../redux/chat.redux'
 import {favorlist,mypost} from '../../redux/post.redux'
+import { Redirect } from 'react-router-dom'
 
 @connect(
 	state=>state,
@@ -45,9 +46,7 @@ class Dashboard extends React.Component {
 	}
 
     render(){
-		const Item = Popover.Item
         const {pathname} = this.props.location
-		const user = this.props.user
 		const navList = [
 			{
 				path:'/home',
@@ -71,8 +70,8 @@ class Dashboard extends React.Component {
 				component:Me
 			}
 		]
-		
-        return(
+		const page = navList.find(v=>v.path==pathname)
+        return page?(
             <div>
 				<div style={{marginTop:45}}>
 					 <Switch>
@@ -108,11 +107,11 @@ class Dashboard extends React.Component {
 							<use xlinkHref={"#icon-sousuo"}></use>
 						</svg>):('')
 				}
-				>{navList.find(v=>v.path==pathname).title}</NavBar>
+				>{page.title}</NavBar>
 				
 				<NavLinkBar data={navList}></NavLinkBar>
             </div>
-        )
+        ):<Redirect to='/home'></Redirect>
     }
 }
 

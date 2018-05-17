@@ -1,5 +1,5 @@
 import React from 'react'
-import {NavBar, Icon, List, InputItem, WhiteSpace, TextareaItem, Button,Toast,ImagePicker, WingBlank,Tag} from 'antd-mobile'
+import {NavBar, Icon, List, WhiteSpace, TextareaItem, Toast,ImagePicker, WingBlank,Tag} from 'antd-mobile'
 import formstate from '../../component/formstate/formstate'
 import { connect } from 'react-redux'
 import { newposts } from '../../redux/post.redux'

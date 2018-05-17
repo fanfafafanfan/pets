@@ -1,5 +1,5 @@
 import React from 'react'
-import {NavBar, Icon, List, WhiteSpace, Item} from 'antd-mobile'
+import {NavBar, Icon, List} from 'antd-mobile'
 import { connect } from 'react-redux'
 import icons from '../smallComponent/myicon/icons'
 import PostCard from '../home/postcard'

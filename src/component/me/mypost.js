@@ -1,8 +1,7 @@
 import React from 'react'
-import {NavBar, Icon, List, Brief, WhiteSpace, Button, Modal,Tag} from 'antd-mobile'
+import {NavBar, Icon, List, WhiteSpace, Button, Modal,Tag} from 'antd-mobile'
 import { connect } from 'react-redux'
 import icons from '../smallComponent/myicon/icons'
-import PostCard from '../home/postcard'
 import './me.css'
 import {deletepost,mypost,favorlist} from '../../redux/post.redux'
 const alert = Modal.alert
@@ -58,7 +57,6 @@ export default class Mypost extends React.Component {
     render() {
         const Item = List.Item
         const Brief = Item.Brief
-        const userid = this.props.user._id
         const mylist = Object.values(this.props.post.mypost).sort((a,b)=>{
             return Date.parse(b.post_time) - Date.parse(a.post_time)
         })

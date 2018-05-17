@@ -1,5 +1,5 @@
 import React from 'react'
-import { SearchBar, WhiteSpace, WingBlank, NavBar,Icon,Tag,List,Item,Button } from 'antd-mobile'
+import { SearchBar, WhiteSpace, WingBlank, NavBar,Icon,Tag,List,Button } from 'antd-mobile'
 import { connect } from 'react-redux'
 import {getPostList} from '../../redux/home.redux'
 import PostCard from '../home/postcard'
@@ -49,7 +49,6 @@ export default class Sousuo extends React.Component {
         })
     }
     handlesearch(){
-        const Item = List.Item
         const searchlist = []
         const postlist = this.props.home.postlist
         postlist.forEach(v => {

@@ -33,7 +33,6 @@ class User extends React.Component {
     render() {
         const {user,avatar,name,city,desc,icons,type} = this.props
         const Item = List.Item
-        const Brief = Item.Brief
         return this.props.user?(
 
             <div id="me-icon">

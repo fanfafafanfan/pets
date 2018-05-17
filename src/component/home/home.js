@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tabs, Badge, List, Carousel, WingBlank } from 'antd-mobile'
+import { Tabs, Badge, List, Carousel } from 'antd-mobile'
 import {connect} from 'react-redux'
 import {getPostList,allpostimgs} from '../../redux/home.redux'
 import PostCard from './postcard'

@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {TabBar} from 'antd-mobile'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -11,9 +10,6 @@ import icons from '../smallComponent/myicon/icons'
 )
 @icons
 class NavLinkBar extends React.Component {
-	// static propTypes = {
-	// 	data: PropTypes.array.isRequired
-	// }
 	render(){
 		// console.log(this.props);
 		const navList = this.props.data

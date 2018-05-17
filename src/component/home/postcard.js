@@ -1,7 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {List,Brief, WhiteSpace,WingBlank,Tag} from 'antd-mobile'
+import {List, WhiteSpace,Tag} from 'antd-mobile'
 import {withRouter} from 'react-router-dom'
 import icons from '../smallComponent/myicon/icons'
 @withRouter
@@ -47,8 +45,6 @@ class PostCard extends React.Component{
  render() {
     const Item = List.Item
     const Brief = Item.Brief
-    const users = this.props.users
-    const showDelete = this.props.showDelete
     const postlists = Object.values(this.props.data).sort((a,b)=>{
         return Date.parse(b.post_time) - Date.parse(a.post_time)
     })
