@@ -94,7 +94,6 @@ class NewPost extends React.Component {
       }
     }
   render() {
-    console.log(this.state);
     const Item = Popover.Item
     const {postid,title,content} = this.props.match.params
     const { files } = this.state;

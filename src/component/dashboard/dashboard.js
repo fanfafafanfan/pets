@@ -65,7 +65,7 @@ class Dashboard extends React.Component {
 			},
 			{
 				path:'/me',
-				text:'我',
+				text:'我的',
 				icon:'me',
 				title:'个人中心',
 				component:Me

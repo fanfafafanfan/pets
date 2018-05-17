@@ -3,7 +3,7 @@ import { NavBar,Icon, InputItem, WhiteSpace, TextareaItem, Button,Picker,List,Mo
 import AvatarSelector from '../../component/avatar-selector/avatar-selector'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
-import {update,revise} from '../../redux/user.redux'
+import {revise} from '../../redux/user.redux'
 import {fixCarousel,areaArray} from '../../util'
 import '../../container/lingyanginfo/lingyang.css'
 // import { district } from 'antd-mobile-demo-data';
@@ -22,7 +22,7 @@ const CustomChildren = props => (
   );
 @connect(
     state=>state.user,
-    {update,revise}
+    {revise}
 )
 class LingyangInfo extends React.Component{
     constructor(props) {

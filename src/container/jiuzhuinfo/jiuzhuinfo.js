@@ -50,7 +50,7 @@ class JiuzhuInfo extends React.Component{
         if (!this.state.avatar) {
             Toast.info('请选择头像',1)
         }else if(this.state.name==''){
-            Toast.info('请填写昵称',1)
+            Toast.info('请填写救助站名称',1)
         }else if(this.state.city.length<1){
             Toast.info('请选择地区',1)
         }else if(this.state.desc==''){

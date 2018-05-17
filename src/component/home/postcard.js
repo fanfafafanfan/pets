@@ -9,7 +9,7 @@ import icons from '../smallComponent/myicon/icons'
 class PostCard extends React.Component{
     // 跳转到帖子详情的页面
     handleClick(id){
-        // console.log(this.props)
+        console.log(this.props)
         this.props.history.push(`/postdetail/${id}`)
     }
     cardavatar(id){

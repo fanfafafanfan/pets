@@ -14,7 +14,7 @@ class Home extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-            data: ['1', '2', '3'],
+            data: [],
             imgHeight: 176,
             tabindex: 0
         }
@@ -24,7 +24,11 @@ class Home extends React.Component{
         this.props.allpostimgs()
         setTimeout(() => {
             this.setState({
-              data: ['AiyWuByWklrrUDlFignR', 'TekJlZRVCjLFexlOCuWn', 'IJOtIlfsYdTyaDTRVrLI'],
+              data: [
+                'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=370504143,895405542&fm=27&gp=0.jpg',
+                'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=4030467456,2017218345&fm=27&gp=0.jpg',
+                'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3636492962,983358283&fm=27&gp=0.jpg'
+               ],
             });
           }, 100);
     }
@@ -48,19 +52,17 @@ class Home extends React.Component{
         return (
             <div id="home">
                 <Carousel
-                autoplay={false}
+                autoplay
                 infinite
-                beforeChange={(from, to) => console.log(`slide from ${from} to ${to}`)}
-                afterChange={index => console.log('slide to', index)}
                 >
                 {this.state.data.map(val => (
                     <a
                     key={val}
-                    href="http://www.alipay.com"
+                    href=""
                     style={{ display: 'inline-block', width: '100%', height: this.state.imgHeight }}
                     >
                     <img
-                        src={`https://zos.alipayobjects.com/rmsportal/${val}.png`}
+                        src={val}
                         alt=""
                         style={{ width: '100%', verticalAlign: 'top' }}
                         onLoad={() => {
@@ -72,6 +74,7 @@ class Home extends React.Component{
                     </a>
                 ))}
                 </Carousel>
+                
                 <Tabs tabs={tabs}
                     initialPage={this.state.tabindex}
                     onTabClick={(tab, index) => { this.setState({tabindex:index}) }}
