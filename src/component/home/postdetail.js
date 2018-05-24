@@ -27,11 +27,13 @@ export default class Postdetail extends React.Component {
     componentWillMount(){
         const favorlist = this.props.post.favorlist
         const isfavor = []
-        favorlist.forEach(v => {
-            if (v.post_id == this.props.match.params.postid && v.user_id == this.props.user._id) {
-                isfavor.push(v)
-            }
-        })
+        if(favorlist){
+            favorlist.forEach(v => {
+                if (v.post_id == this.props.match.params.postid && v.user_id == this.props.user._id) {
+                    isfavor.push(v)
+                }
+            })
+        }
         if(isfavor.length>0){
             if(isfavor[0].collect){
                 this.setState({favor:'favorfill'})

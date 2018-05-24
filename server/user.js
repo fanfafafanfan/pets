@@ -4,8 +4,6 @@ const utils = require('utility')
 const Router = express.Router()
 const model = require('./model')
 const User = model.getModel('user')
-const Chat = model.getModel('chat')
-const Posts = model.getModel('posts')
 const _filter = {'pwd':0,'__v':0}
 //修改个人信息
 Router.post('/revise',function (req,res) {

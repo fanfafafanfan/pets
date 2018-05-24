@@ -11,6 +11,7 @@ import { getMsgList, recvMsg } from '../../redux/chat.redux'
 import {favorlist,mypost} from '../../redux/post.redux'
 import { Redirect } from 'react-router-dom'
 
+//底部dashboard栏切换页面
 @connect(
 	state=>state,
 	{getMsgList,recvMsg,getPostList,favorlist,mypost}  
@@ -116,32 +117,3 @@ class Dashboard extends React.Component {
 }
 
 export default Dashboard
-
-// rightContent={<Popover mask
-// 	visible={this.state.visible}
-// 	overlay={[
-// 		(<Item 
-// 		key="0" 
-// 		value="newpost" 
-// 		onClick={()=>{this.props.history.push('/newpost')}}
-// 		>发帖</Item>)
-// 	]}
-// 	popupAlign={{
-// 		overflow: {adjustY: 0, adjustX: 0},
-// 	}}
-// 	onVisibleChange={(e)=>this.handleVisibleChange(e)}
-// 	onSelect={(e)=> {
-// 		this.onSelect()
-// 	}}
-// >
-// <div style={{
-//    height: '100%',
-//    padding: '0 0.3rem',
-//    marginRight: '-0.3rem',
-//    display: 'flex',
-//    alignItems: 'center',
-// }}
-// >
-//    <Icon type="ellipsis"/>
-// </div>
-// </Popover>}

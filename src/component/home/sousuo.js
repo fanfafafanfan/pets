@@ -49,19 +49,30 @@ export default class Sousuo extends React.Component {
         })
     }
     handlesearch(){
+        
         const searchlist = []
         const postlist = this.props.home.postlist
         postlist.forEach(v => {
-            if (v.tags==this.state.tags.toString()) {
+            let count = 0
+            this.state.tags.forEach(t=>{
+                if(v.tags.indexOf(t)>-1){
+                    count++
+                }
+            })
+            if(count==this.state.tags.length){
                 searchlist.push(v)
             }
-            if(v.tags!==this.state.tags.toString()){
-                this.state.tags.forEach(t => {
-                    if(v.tags.indexOf(t)>-1){
-                        searchlist.push(v)
-                    }
-                });
-            }
+            
+            // if (v.tags==this.state.tags.toString()) {
+            //     searchlist.push(v)
+            // }
+            // if(v.tags!==this.state.tags.toString()){
+            //     this.state.tags.forEach(t => {
+            //         if(v.tags.indexOf(t)>-1){
+            //             searchlist.push(v)
+            //         }
+            //     });
+            // }
         })
         this.setState({
             searchlist:searchlist

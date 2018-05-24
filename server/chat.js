@@ -3,8 +3,8 @@ const Router = express.Router()
 const model = require('./model')
 const User = model.getModel('user')
 const Chat = model.getModel('chat')
-const Posts = model.getModel('posts')
 
+//获取消息列表
 Router.get('/getmsglist',function (req,res) {
     const userid = req.cookies.userid
     User.find({},function (e,userdoc) {
@@ -21,7 +21,7 @@ Router.get('/getmsglist',function (req,res) {
     // {'$or':[{from:user,to:user}]}
     
 })
-
+//修改已读消息数量
 Router.post('/readmsg',function (req,res) {
     const userid = req.cookies.userid
     const {from} = req.body

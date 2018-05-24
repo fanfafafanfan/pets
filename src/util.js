@@ -82,7 +82,7 @@ export const areaArray = [
             {label: '永胜县', value: '永胜县'},
             {label: '华坪县', value: '华坪县'}
         ]},
-        {label: '保山市', value: '昆明市', children:[
+        {label: '保山市', value: '保山市', children:[
             {label: '隆阳区', value: '隆阳区'},
             {label: '腾冲市', value: '腾冲市'},
             {label: '昌宁县', value: '昌宁县'}

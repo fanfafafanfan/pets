@@ -20,8 +20,6 @@ class NewPost extends React.Component {
         this.handlepost = this.handlepost.bind(this)
     }
     handlepost(){
-      // const posttime = new Date()
-      // this.props.handleChange('posttime',posttime)
       if(!this.props.state.title){
         Toast.info('标题不能为空',1)
         return false

@@ -93,7 +93,6 @@ class Home extends React.Component{
                                                 </div>
                                             </Item>
                                         </List>
-                            
                         }
                     </div>
                     <div style={{ alignItems: 'center', justifyContent: 'center', height: '590px', backgroundColor: '#fff' }}>
@@ -110,7 +109,6 @@ class Home extends React.Component{
                                                 </div>
                                             </Item>
                                         </List>
-                            
                         }
                     </div>
                 </Tabs>

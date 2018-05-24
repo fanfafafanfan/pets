@@ -2,9 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const model = require('./model')
-const User = model.getModel('user')
 const Chat = model.getModel('chat')
-const Posts = model.getModel('posts')
 
 const app = express()
 const server = require('http').Server(app)
@@ -14,8 +12,8 @@ const userRouter = require('./user')
 const chatRouter = require('./chat')
 const postsRouter = require('./posts')
 
+//使用socket.io进行消息双向通信
 io.on('connection',function (socket) {
-    // console.log('user login');
     // 当前连接的socket监听当前的sendmsg  io是全局的
     socket.on('sendmsg',function (data) {
         const{ from, to, msg} = data

@@ -11,7 +11,6 @@ import icons from '../smallComponent/myicon/icons'
 @icons
 class NavLinkBar extends React.Component {
 	render(){
-		// console.log(this.props);
 		const navList = this.props.data
 		const {pathname} = this.props.location
 		return (

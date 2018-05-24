@@ -32,6 +32,7 @@ export function user(state=initState,action) {
 function reviseSuccess(data) {
     return {type:REVISE_SUCCESS, payload:data}
 }
+//修改个人信息
 export function revise(data) {
     return dispatch=>{
         for(var key in data) {
@@ -48,7 +49,7 @@ export function revise(data) {
         })
     }
 }
-
+//注销
 export function logoutSubmit() {
     return {type:LOG_OUT}
 }
@@ -64,6 +65,7 @@ function errorMsg(msg) {
 function authSuccess(data) {
     return {type:AUTH_SUCCESS, payload:data}
 }
+//完善信息
 export function update(data){
     return dispatch=>{
         axios.post('/user/update',data).then(res=>{
@@ -75,6 +77,7 @@ export function update(data){
         })
     }
 }
+//登录
 export function login({user,pwd}) {
     if (!user||!pwd) {
         return errorMsg('必须输入用户名和密码')
@@ -106,6 +109,7 @@ function checkPwd(val) {
         return false
     }
 }
+//注册
 export function register({user,pwd,repeatpwd,type}) {
     if (!user||!pwd||!type) {
         return errorMsg('必须输入用户名和密码')
